@@ -1,0 +1,1610 @@
+/* ============================================================
+   1. CSS CORE
+   ============================================================ */
+
+* {
+  margin: 0;
+  padding: 0;
+  font-family: "Plus Jakarta Sans", sans-serif;
+  box-sizing: border-box;
+}
+
+.hero-title:not(.js-loaded) span {
+  opacity: 0;
+  display: inline-block;
+}
+
+body {
+  background: var(--bg-color);
+  color: #2f362f;
+  font-size: 16px; /* Set the global default to 18px */
+  line-height: 1.6; /* Increased line height for better readability at 18px */
+}
+
+:root {
+  --bg-color: #fffffc;
+  --text-primary: #111111;
+  --text-secondary: #888888;
+  --accent-color: #111111;
+  --accent-pink: #ce2380;
+  --border-color: #dddddd;
+}
+
+/* ============================================================
+   1. NAVBAR
+   ============================================================ */
+
+.container {
+  animation: transitionIn 0.75s;
+  padding: 0 clamp(7%, 8vw, 12%); /* Set vertical to 0 */
+}
+
+#about,
+#services,
+#portfolio,
+#contact {
+  padding: 60px 0; /* Give the sections vertical room to breathe */
+}
+
+/* 1. Default state for all main sections */
+#header,
+#about,
+#services,
+#portfolio,
+#contact {
+  filter: blur(8px);
+  opacity: 0.4;
+  transition: filter 0.8s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.8s ease,
+    transform 0.8s ease;
+  transform: scale(0.98);
+  will-change: filter, opacity; /* Optimizes performance for high-res */
+}
+
+/* Keep header clear at the very start of the visit */
+#header.section-focus,
+#header:first-of-type {
+  filter: blur(0);
+  opacity: 1;
+}
+#header.section-focus .hero-title {
+    transform: none !important;
+    text-align: left; /* Ensures it stays pinned to the left */
+    width: 100%;
+}
+
+/* 2. The "Focused" state (Triggered by JS) */
+.section-focus {
+  filter: blur(0) !important;
+  opacity: 1 !important;
+  transform: scale(1) !important;
+  z-index: 10; /* Ensures the clear section sits "above" the blurred ones */
+}
+
+#header,
+#about,
+#services,
+#portfolio,
+#contact {
+  position: relative;
+  z-index: 1;
+}
+#header:hover,
+#about:hover,
+#services:hover,
+#portfolio:hover,
+#contact:hover {
+  z-index: 10; /* Brings the clear section to the very front */
+}
+
+/* --- Overhauled Skeleton Loader --- */
+.photo-gallery {
+  position: relative;
+  min-height: 400px; /* Ensures space exists before images load */
+}
+
+.gallery-loader {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  /* Remove display: grid from here if you want it to behave; 
+     actually, keeping grid is fine, but ensure it's contained */
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 25px;
+  z-index: 5; /* High enough to cover the picflow-gallery */
+  background: var(--bg-color); /* Matches page bg to hide gallery behind it */
+  pointer-events: none;
+  transition: opacity 0.6s ease, visibility 0.6s ease;
+}
+
+.tab-contents:not(.active-tab) .gallery-loader {
+  display: none !important;
+  opacity: 0;
+  visibility: hidden;
+}
+
+/* The "Solid" Entrance Animation */
+.gallery-entrance {
+  animation: solidSlideReveal 0.7s cubic-bezier(0.19, 1, 0.22, 1) forwards;
+  will-change: transform, clip-path, opacity;
+}
+
+@keyframes solidSlideReveal {
+  0% {
+    opacity: 0;
+    /* Start clipped and slightly to the left */
+    clip-path: inset(0 100% 0 0);
+    transform: translateX(-30px);
+  }
+  100% {
+    opacity: 1;
+    /* Reveal the full width and snap to center */
+    clip-path: inset(0 0% 0 0);
+    transform: translateX(0);
+  }
+}
+
+/* Optional: Add a slight darken transition to the background 
+   to make the "solid" panel stand out more */
+.tab-contents.active-tab {
+  transition: background-color 0.5s ease;
+}
+
+.shimmer-card {
+  position: relative;
+  height: 400px; /* Increased height for better visual impact */
+  background: #f0f0f0;
+  border-radius: 20px;
+  overflow: hidden;
+  /* Subtle pulse animation for the base color */
+  animation: pulse 2s infinite ease-in-out;
+}
+
+/* The high-gloss shimmer sweep */
+.shimmer-card::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  /* Using 110deg makes the "light sweep" look more natural */
+  background: linear-gradient(
+    110deg,
+    rgba(255, 255, 255, 0) 20%,
+    rgba(255, 255, 255, 0.5) 50%,
+    rgba(255, 255, 255, 0) 80%
+  );
+  transform: translateX(-100%);
+  animation: shimmer-sweep 1.5s infinite; /* Slightly faster for a snappier feel */
+}
+
+@keyframes shimmer-sweep {
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    background-color: #f0f0f0;
+  }
+  50% {
+    background-color: #e0e0e0;
+  }
+}
+
+.images-ready .gallery-loader {
+  opacity: 0;
+  visibility: hidden;
+}
+
+/* Hide loader once Picflow loads */
+.picflow-loaded .gallery-loader {
+  display: none;
+}
+
+picflow-gallery {
+  position: relative;
+  z-index: 1; /* Sits behind the loader initially */
+  display: block;
+  opacity: 1;
+  transition: opacity 1s ease;
+}
+
+picflow-gallery a {
+  opacity: 0 !important;
+  visibility: hidden !important;
+  transition: opacity 0.5s ease;
+}
+
+/* Show it only when the loading process is complete */
+.images-ready picflow-gallery a {
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+.images-ready picflow-gallery {
+  opacity: 1;
+  z-index: 3; /* Gallery jumps to the front */
+}
+
+/* ****************** Navbar ****************** */
+.navbar h1 {
+  font-weight: 700;
+  font-size: 16px;
+  color: var(--accent-color);
+}
+
+.navbar {
+  position: fixed; /* Keeps it in place even when scrolling */
+  top: 0; /* Aligns it to the very top */
+  left: 0; /* Ensures it starts from the left edge */
+  width: 100%; /* Makes it span the full width of the screen */
+  z-index: 1000; /* Ensures it stays above all other content */
+  background: var(--bg-color); /* Prevents content from showing through */
+  transition: background 0.3s ease; /* Optional: for smooth transitions */
+  border-bottom: 1px solid var(--border-color);
+}
+
+.navbar .container {
+  max-width: 2000px;
+  margin: 0 auto;
+  padding: 0 10%; /* Matches your site's side spacing */
+}
+
+/* 2. The Nav handles the "Most Left" and "Most Right" positioning */
+nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* This pushes logo left and ul right */
+  flex-wrap: wrap;
+  padding: 10px 0;
+}
+/* 3. Ensure the list of links doesn't have extra margin pushing it away */
+nav ul {
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.logo {
+  cursor: pointer;
+  width: 30px;
+  transition: all 0.2s;
+}
+.logo:hover {
+  filter: opacity(60%);
+}
+nav ul li {
+  display: inline-block;
+  list-style: none;
+  margin: 10px 20px;
+  line-height: 1;
+}
+nav ul li a {
+  color: var(--text-primary);
+  text-decoration: none;
+  font-size: 16px;
+  position: relative;
+  transition: color 0.5s;
+}
+nav ul li a::after {
+  content: "";
+  width: 0;
+  height: 38px;
+  z-index: -1;
+  background: var(--accent-color);
+  position: absolute;
+  left: -10px;
+  bottom: -10px;
+  transition: 0.5s;
+}
+nav ul li a:hover::after {
+  width: 140%;
+}
+nav ul li a:hover {
+  color: var(--bg-color);
+}
+nav ul li a:hover::after, 
+nav ul li a.active::after {   /* Added .active selector here */
+  width: 140%;
+}
+
+nav ul li a:hover, 
+nav ul li a.active {         /* Added .active selector here */
+  color: var(--bg-color);
+}
+
+nav ul li a.active::after {
+  width: 140%; /* Shows the underline/background effect */
+}
+
+nav ul li a.active {
+  color: var(--bg-color); /* Changes text color for contrast */
+}
+
+nav ul li a.nav-special {
+    color: var(--accent-pink); /* Or any color like #ff0000 */
+    font-weight: 900;
+}
+
+nav ul li a.nav-special:hover, 
+nav ul li a.nav-special.active {         /* Added .active selector here */
+  color: var(--bg-color);
+}
+
+nav ul li a.nav-special::after {
+  background: var(--accent-pink);
+}
+
+
+/* ****************** Header ****************** */
+/* Animations */
+@-webkit-keyframes bg-scrolling-reverse {
+  100% {
+    background-position: 50px 50px;
+  }
+}
+@-moz-keyframes bg-scrolling-reverse {
+  100% {
+    background-position: 50px 50px;
+  }
+}
+@-o-keyframes bg-scrolling-reverse {
+  100% {
+    background-position: 50px 50px;
+  }
+}
+@keyframes bg-scrolling-reverse {
+  100% {
+    background-position: 50px 50px;
+  }
+}
+
+/* Transition Animations */
+@keyframes transitionIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Main Body */
+#header {
+  width: 100%;
+  position: sticky;
+  top: 0;
+  z-index: -1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center; /* Mathematical center */
+  height: 100vh;
+
+  background: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAIAAACRXR/mAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAIGNIUk0AAHolAACAgwAA+f8AAIDpAAB1MAAA6mAAADqYAAAXb5JfxUYAAABnSURBVHja7M5RDYAwDEXRDgmvEocnlrQS2SwUFST9uEfBGWs9c97nbGtDcquqiKhOImLs/UpuzVzWEi1atGjRokWLFi1atGjRokWLFi1atGjRokWLFi1af7Ukz8xWp8z8AAAA//8DAJ4LoEAAlL1nAAAAAElFTkSuQmCC")
+    repeat 0 0;
+  animation: bg-scrolling-reverse 0.92s infinite linear;
+}
+
+/* 2. Constrain the container inside the header */
+#header .container {
+  max-width: 2000px;
+  margin: 0 auto;
+  padding: 0 10%;
+  width: 100%;
+}
+
+/* ============================================================
+   STAGGERED HERO ANIMATION (CLEANED & MERGED)s
+   ============================================================ */
+.hero-title {
+  text-align: left;
+  max-width: 1000px;
+  margin: 0;
+  font-size: clamp(
+    2.5rem,
+    10vw,
+    7.5rem
+  ); /* Slightly smaller start (2.5rem) for narrow phones */
+  line-height: 1.1;
+  width: 100%;
+  word-wrap: break-word;
+}
+
+.hero-title.js-loaded {
+  visibility: visible;
+}
+
+/* Base style for EVERY letter generated by the script */
+.hero-title span {
+  font-weight: 200; /* Light weight for the main text */
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(110%);
+  animation: staggeredLetterReveal 0.8s cubic-bezier(0.19, 1, 0.22, 1) forwards;
+}
+
+/* ONLY the letters that were inside your original HTML span */
+.hero-title span.bold-letter {
+  font-weight: 900 !important; /* Heavy weight for Emphasis */
+}
+
+@keyframes fadeIn {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes staggeredLetterReveal {
+  0% {
+    opacity: 0;
+    transform: translateY(110%);
+    filter: blur(5px); /* Adds a premium soft focus effect */
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0);
+  }
+}
+
+/* ****************** Content Section ****************** */
+.content-section {
+  z-index: 999;
+  background: var(--bg-color);
+  border-top: 1px solid var(--border-color);
+}
+
+/* ****************** About ****************** */
+#about {
+  padding-top: 50px;
+  color: var(--text-primary);
+  line-height: 1.5;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 2000px;
+}
+
+/* --- Layout & Rows --- */
+.row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.about-col-1 {
+  flex-basis: 30%;
+}
+.about-col-1 img {
+  width: 100%;
+  border-radius: 50px;
+  border: 1px solid var(--border-color);
+}
+.about-col-2 {
+  flex-basis: 60%;
+  align-self: flex-start;
+  overflow: hidden; /* Important for clip-path */
+}
+.sub-title {
+  font-size: 70px;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 20px;
+}
+
+/* --- Tab Titles --- */
+.tab-titles {
+  display: flex;
+  gap: 0px;
+  margin: 40px 0 20px;
+}
+
+.tab-links {
+  padding: 10px 20px;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  position: relative;
+  color: var(--text-secondary);
+  transition: transform 0.3s ease, color 0.3s ease;
+  display: inline-block;
+}
+
+.tab-links:hover {
+  color: #ce2380;
+  transform: translateY(-5px); /* Tiny nudge to the right */
+}
+
+.tab-links.active-link {
+  background: #000 !important;
+  color: #fff !important;
+}
+
+/* --- Content Styling --- */
+/* --- 1. Base State (Hidden) --- */
+#about .tab-contents {
+  display: none;
+  opacity: 0;
+  /* Start 30px to the left */
+  transform: translateX(-30px);
+}
+
+/* --- 2. Active State (Snappy Side Slide) --- */
+#about .tab-contents.active-tab {
+  display: block !important;
+  /* Using the Expo-Out curve for that high-end mechanical snap */
+  animation: snappySideSlide 0.4s cubic-bezier(0.19, 1, 0.22, 1) forwards;
+}
+
+@keyframes snappySideSlide {
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* --- 3. Clean List Items --- */
+#about .tab-contents ul li {
+  opacity: 1;
+  animation: none; /* Keep it simple to avoid over-animating */
+}
+
+.tab-contents ul {
+  margin-top: 20px;
+  padding: 0;
+}
+.tab-contents ul li {
+  list-style: none;
+  margin: 20px 0;
+  padding-left: 0;
+  border-left: 2px solid transparent;
+  transition: border-left 0.3s ease, padding-left 0.3s ease;
+}
+.tab-contents ul li:hover {
+  border-left: 2px solid var(--accent-pink);
+  padding-left: 15px;
+}
+.tab-contents ul li span {
+  color: var(--accent-pink);
+  font-size: 14px;
+  font-weight: 600;
+  display: block;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.tab-contents ul li p {
+  color: #555; /* Softened text color for better readability */
+  font-size: 15px;
+  line-height: 1.5;
+  margin: 0;
+}
+
+/* ****************** Services (Final Solid Style) ****************** */
+#services {
+  padding: 50px 0;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 2000px;
+}
+
+.services-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  grid-gap: 40px;
+  margin-top: 50px;
+}
+
+.services-list div {
+  background: var(--accent-color);
+  color: #fff;
+  padding: 30px;
+  font-size: 15px;
+  border-radius: 40px; /* Resting state */
+  transition: all 0.5s ease-in-out;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.services-list div i {
+  font-size: 35px;
+  margin-bottom: 15px;
+}
+
+.services-list div h2 {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+.services-list div a {
+  text-decoration: none;
+  color: var(--accent-pink);
+  font-weight: 600;
+  margin-top: 20px;
+  display: inline-block;
+}
+
+.services-list div:hover {
+  border-radius: 0; /* Snaps to sharp rectangle */
+  background-color: #ce2380;
+}
+
+.services-list div a:hover {
+  filter: invert();
+}
+
+.services-list div:hover a {
+  color: #262626;
+}
+
+/* ****************** Portfolio ****************** */
+
+#portfolio {
+  padding: 50px 0;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 2000px;
+}
+/* ================== THE NEW PORTFOLIO CARDS ================== */
+/* --- 1. Grid Layout --- */
+.work-list {
+  margin-top: 40px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 30px;
+  overflow: visible;
+}
+
+/* --- 2. Perspective Wrap --- */
+.card-wrap {
+  flex: 1 1 400px;
+  max-width: 800px;
+  perspective: 1200px;
+  height: 450px;
+  pointer-events: auto;
+}
+
+/* --- 3. The Card Container --- */
+.card-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background-color: #000;
+  overflow: hidden;
+  border-radius: 15px;
+  transform-style: preserve-3d;
+
+  /* Stable Outline Box Shadow */
+  box-shadow: rgba(0, 0, 0, 0.2) 0 15px 35px 0,
+    /* Lighter shadow */ inset #111 0 0 0 5px,
+    inset rgba(255, 255, 255, 0.4) 0 0 0 7px,
+    /* Softer white edge */ inset rgba(0, 0, 0, 0.1) 0 0 0 8px;
+
+  transition: transform 0.8s cubic-bezier(0.2, 1, 0.3, 1);
+}
+
+/* --- 4. The Unified Overlay (Fixed Jitter) --- */
+.card-container::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  /* Changed from 0.85 to 0.6 opacity for a lighter feel */
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0) 40%,
+    rgba(0, 0, 0, 0.6) 100%
+  );
+  z-index: 2;
+  pointer-events: none;
+  transition: all 0.5s ease;
+}
+
+/* --- 5. Background Image --- */
+.card-bg {
+  z-index: 1;
+  opacity: 0.75; /* Increased from 0.6 for more visibility */
+  position: absolute;
+  top: -10%;
+  left: -10%;
+  width: 120%;
+  height: 120%;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  transition: transform 0.8s cubic-bezier(0.23, 1, 0.32, 1), opacity 0.5s ease;
+  overflow: hidden;
+}
+.card-bg video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* This is the "magic" property that acts like background-size: cover */
+  display: block;
+}
+
+/* Ensure your card-info sits on top of the video */
+.card-info {
+  position: relative;
+  z-index: 2;
+}
+/* --- 6. The Text Info Layer --- */
+.card-info {
+  z-index: 3;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  box-sizing: border-box;
+  padding: 30px 30px 50px 30px;
+
+  /* Text shadow adds "lift" and ensures readability on lighter backgrounds */
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+  transform: translateY(30px) translateZ(60px);
+  transition: transform 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.card-info h1 {
+  margin-bottom: 10px;
+  font-size: 28px;
+  transform: translateZ(20px); /* Gives the title its own depth */
+}
+
+.card-info p {
+  font-size: 16px;
+  line-height: 1.4;
+  max-height: 0;
+  opacity: 0;
+  overflow: hidden;
+  transition: max-height 0.5s ease, opacity 0.5s ease, margin 0.5s ease;
+}
+
+/* --- 7. Unified Hover States --- */
+
+.card-wrap:hover .card-container {
+  /* Combined tilt and lift */
+  transform: translateY(-10px) rotateX(2deg) rotateY(-2deg);
+  box-shadow: rgba(0, 0, 0, 0.6) 0 30px 60px 0, inset #111 0 0 0 5px,
+    inset rgba(255, 255, 255, 0.7) 0 0 0 7px, inset rgba(0, 0, 0, 0.3) 0 0 0 8px;
+}
+
+.card-wrap:hover .card-container::before {
+  /* Softened the hover overlay as well */
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.1) 20%,
+    rgba(0, 0, 0, 0.8) 100%
+  );
+}
+
+.card-wrap:hover .card-bg {
+  opacity: 1; /* Fully bright on hover */
+  transform: scale(1.05);
+}
+
+.card-wrap:hover .card-info {
+  /* Slide back to base position */
+  transform: translateY(0) translateZ(60px);
+}
+
+.card-wrap:hover .card-info p {
+  max-height: 150px; /* Room for your descriptions */
+  opacity: 1;
+  margin-top: 10px;
+}
+
+/* Base state for all revealing cards */
+.reveal {
+  opacity: 0;
+  /* Duration: 0.8s matches the 'weight' of a physical card */
+  /* Timing: cubic-bezier(0.2, 1, 0.3, 1) is a high-end 'out-expo' curve */
+  transition: opacity 0.6s ease-out, transform 0.8s cubic-bezier(0.2, 1, 0.3, 1);
+  pointer-events: none;
+}
+
+/* Adjusting the starting distance: 60px is 'snappier' than 100px */
+.work-list .card-wrap:nth-child(odd).reveal {
+  transform: translateX(-60px) rotateY(-5deg);
+}
+
+.work-list .card-wrap:nth-child(even).reveal {
+  transform: translateX(60px) rotateY(5deg);
+}
+
+.reveal.active {
+  opacity: 1;
+  transform: translateX(0) rotateY(0) !important;
+  pointer-events: auto;
+}
+
+.work-list .card-wrap:nth-child(2) {
+  transition-delay: 0.1s;
+}
+.work-list .card-wrap:nth-child(3) {
+  transition-delay: 0.2s;
+}
+
+/* ****************** Contact ****************** */
+#contact {
+  margin-top: 50px;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 2000px;
+}
+
+.contact-left {
+  border-right: 1px solid #464646;
+  flex-basis: 35%;
+}
+.contact-right {
+  flex-basis: 60%;
+}
+.contact-left p {
+  color: #ff004f;
+  font-weight: 500;
+  font-size: 30px;
+  margin-top: 30px;
+  transition: all 0.5s;
+}
+.contact-left p:hover {
+  color: #4682b4;
+}
+.social-icons {
+  margin: 30px 0 30px 0;
+}
+.social-icons ul {
+  display: flex;
+  padding: 20px 0;
+  margin: 0;
+}
+.social-icons ul li {
+  list-style: none;
+}
+.social-icons ul li a {
+  display: block;
+  position: relative;
+  width: 60px; /* Adjusted size */
+  height: 60px;
+  line-height: 60px;
+  font-size: 25px; /* Adjusted icon size */
+  text-align: center;
+  text-decoration: none;
+  color: var(--text-primary);
+  margin-right: 20px;
+  transition: 0.5s;
+}
+/* The Animated Borders (Spans) */
+.social-icons ul li a span {
+  position: absolute;
+  transition: transform 0.5s;
+  background: var(--text-primary); /* Default color */
+}
+
+/* Horizontal Lines */
+.social-icons ul li a span:nth-child(1),
+.social-icons ul li a span:nth-child(3) {
+  width: 100%;
+  height: 2px;
+}
+
+.social-icons ul li a span:nth-child(1) {
+  top: 0;
+  left: 0;
+  transform-origin: right;
+}
+.social-icons ul li a:hover span:nth-child(1) {
+  transform: scaleX(0);
+  transform-origin: left;
+}
+
+.social-icons ul li a span:nth-child(3) {
+  bottom: 0;
+  left: 0;
+  transform-origin: left;
+}
+.social-icons ul li a:hover span:nth-child(3) {
+  transform: scaleX(0);
+  transform-origin: right;
+}
+
+/* Vertical Lines */
+.social-icons ul li a span:nth-child(2),
+.social-icons ul li a span:nth-child(4) {
+  width: 2px;
+  height: 100%;
+}
+
+.social-icons ul li a span:nth-child(2) {
+  top: 0;
+  left: 0;
+  transform: scaleY(0);
+  transform-origin: bottom;
+}
+.social-icons ul li a:hover span:nth-child(2) {
+  transform: scaleY(1);
+  transform-origin: top;
+}
+
+.social-icons ul li a span:nth-child(4) {
+  top: 0;
+  right: 0;
+  transform: scaleY(0);
+  transform-origin: top;
+}
+.social-icons ul li a:hover span:nth-child(4) {
+  transform: scaleY(1);
+  transform-origin: bottom;
+}
+
+/* --- Brand Specific Colors (Using your Pink for all or kept original) --- */
+.social-icons a:hover {
+  color: var(--accent-pink) !important;
+}
+.social-icons a:hover span {
+  background: var(--accent-pink) !important;
+}
+
+/* Optional: If you want individual brand colors back */
+.social-icons a.twitter:hover {
+  color: #1da1f2 !important;
+}
+.social-icons a.twitter:hover span {
+  background: #1da1f2 !important;
+}
+
+.social-icons a.instagram:hover {
+  color: #c32aa3 !important;
+}
+.social-icons a.instagram:hover span {
+  background: #c32aa3 !important;
+}
+.social-icons a {
+  text-decoration: none;
+  font-size: 30px;
+  margin-right: 15px;
+  color: #262626;
+  display: inline-block;
+  transition: transform 0.5s;
+}
+.social-icons a:hover {
+  color: #ff004f;
+  transform: translateY(-5px);
+}
+
+.btn {
+  display: inline-block;
+  color: #fff;
+  background: var(--accent-color);
+  border-radius: 20px;
+  padding: 14px 60px;
+  font-size: 16px;
+  cursor: pointer;
+  border: none;
+  text-decoration: none;
+  transition: all 0.5s;
+}
+
+.contact-left .btn {
+  margin-bottom: 30px;
+}
+
+.btn:hover {
+  background: var(--accent-pink);
+  border-radius: 0;
+}
+
+form .btn {
+  margin-top: 15px;
+}
+
+.contact-right form {
+  width: 100%;
+}
+form input,
+form textarea {
+  width: 100%;
+  border: 0;
+
+  background: var(--bg-color);
+  border: 1px solid var(--border-color);
+  padding: 15px;
+  margin: 15px 0;
+  color: var(--text-primary);
+  font-size: 16px;
+  transition: border-color 0.3s, box-shadow 0.3s;
+  border-radius: 10px;
+}
+
+/* When the user clicks into a box */
+.contact-right form input:focus,
+.contact-right form textarea:focus {
+  border-color: var(--accent-color2); /* Your bright pink! */
+  box-shadow: 0 0 8px rgba(255, 0, 127, 0.2);
+}
+
+/* Placeholder text color */
+::placeholder {
+  color: #777;
+  opacity: 0.6;
+}
+
+/* photo gallery */
+
+/* Fix for the gallery starting under the navbar */
+#imagegallery {
+  margin-top: 70px; /* Adjust this value if your navbar height changes */
+  padding-top: 40px; /* Optional: adds extra breathing room inside the section */
+  filter: none !important; /* Ensures no blur as requested previously */
+  opacity: 1 !important; /* Ensures full visibility */
+  max-width: 2000px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#imagegallery .container {
+  /* Adjust this value based on your typical gallery height */
+  /* This prevents the footer from jumping up when tabs are empty */
+  min-height: 80vh;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ****************** Footer ****************** */
+.footer {
+  background: #111111;
+  color: #ffffff;
+  padding: 80px 0 30px;
+  margin-top: 0; /* Changed from 100px to 0 */
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  position: relative;
+  z-index: 1000; /* Ensures it sits above any stray background elements */
+}
+
+.footer-row {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 40px;
+}
+
+.footer-col {
+  flex-basis: 30%;
+  min-width: 250px;
+}
+
+.footer-logo {
+  width: 40px;
+  margin-bottom: 20px;
+  filter: brightness(0) invert(1); /* Makes logo white if it's black */
+}
+
+.footer-col h3 {
+  font-size: 20px;
+  margin-bottom: 25px;
+  position: relative;
+  font-weight: 600;
+}
+
+/* The little pink underline for footer headings */
+.footer-col h3::after {
+  content: "";
+  width: 30px;
+  height: 2px;
+  background: var(--accent-pink);
+  position: absolute;
+  bottom: -8px;
+  left: 0;
+}
+
+.footer-col p {
+  color: #bbbbbb;
+  font-size: 15px;
+  line-height: 1.8;
+}
+
+.footer-col ul {
+  list-style: none;
+}
+
+.footer-col ul li {
+  margin-bottom: 12px;
+}
+
+.footer-col ul li a {
+  color: #bbbbbb;
+  text-decoration: none;
+  transition: 0.3s;
+  font-size: 15px;
+}
+
+.footer-col ul li a:hover {
+  color: var(--accent-pink);
+  padding-left: 5px;
+}
+
+.footer-socials {
+  margin-top: 20px;
+}
+
+.footer-socials a {
+  color: #fff;
+  font-size: 20px;
+  margin-right: 15px;
+  transition: 0.3s;
+}
+
+.footer-socials a:hover {
+  color: var(--accent-pink);
+  transform: translateY(-3px);
+  display: inline-block;
+}
+
+.footer-bottom {
+  text-align: center;
+  margin-top: 60px;
+  padding-top: 25px;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.footer-bottom p {
+  font-size: 14px;
+  color: #888;
+}
+
+.footer-bottom i {
+  color: var(--accent-pink);
+}
+
+.content-section {
+  overflow: visible !important;
+  background: var(--bg-color);
+}
+
+#contact {
+  padding-bottom: 80px; /* Use padding instead of margin for spacing */
+  margin-bottom: 0;
+}
+
+/* --- Back to Top Button --- */
+.back-to-top {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  background: var(--accent-pink);
+  color: #fff;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  z-index: 99999 !important; /* Extremely high to stay above the footer/navbar */
+  cursor: pointer !important;
+  opacity: 0; /* Hidden by default */
+  visibility: hidden;
+  transition: all 0.4s cubic-bezier(0.19, 1, 0.22, 1);
+  transform: translateY(20px); /* Slight slide-up effect when appearing */
+  pointer-events: none;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.back-to-top.show {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+@media (hover: hover) {
+  .back-to-top:hover {
+    background: #111111 !important;
+    transform: scale(1.1);
+  }
+}
+
+/* Mobile adjustments */
+@media only screen and (max-width: 600px) {
+  .footer-col {
+    flex-basis: 100%;
+    text-align: center;
+  }
+  .footer-col h3::after {
+    left: 50%;
+    transform: translateX(-50%);
+  }
+}
+
+/* ****************** Photo Gallery ****************** */
+
+/* ****************** Digital Art ****************** */
+
+/* ****************** Social Media Graphics ****************** */
+
+#socialmediagallery {
+  margin-top: 50px;
+}
+.collateral-photo-gallery {
+  display: flex;
+  gap: 10px;
+  padding: 40px 40px;
+}
+.collateral-photo {
+  position: relative;
+  overflow: hidden;
+}
+.collateral-photo img {
+  width: 100%;
+  height: 100%;
+  border-radius: 5px;
+  object-fit: cover;
+  transition: all 0.2s ease-in-out;
+}
+.collaterals-title {
+  margin-top: 30px;
+  font-size: 40px;
+}
+.socialmedia-title {
+  margin-top: 30px;
+  color: #696969;
+  font-size: 30px;
+}
+.post-description {
+  text-align: center;
+}
+
+/* ****************** Roomiez ****************** */
+
+#app1 {
+  margin-top: 50px;
+}
+
+#app1 .container h1 {
+  font-weight: 600;
+  font-size: 50px;
+  color: #262626;
+}
+
+.product {
+  margin: 60px 0 60px 0;
+}
+
+.product img {
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+}
+
+.product-col-2 {
+  flex-basis: 50%;
+}
+
+.product-col-2 p {
+  margin-top: 20px;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 2;
+}
+
+/* ****************** CSS for small screens ****************** */
+nav .fa-solid {
+  display: none;
+}
+
+@media only screen and (max-width: 600px) {
+  /* cards */
+
+  .work-list .card-wrap:nth-child(odd).reveal {
+    transform: translateX(-40px) scale(0.98);
+  }
+  .work-list .card-wrap:nth-child(even).reveal {
+    transform: translateX(40px) scale(0.98);
+  }
+  .card-link {
+    pointer-events: none;
+    cursor: default;
+  }
+
+  .card-wrap.is-active .card-info p {
+    max-height: 200px;
+    opacity: 1;
+  }
+
+  .card-wrap.is-active .card-container {
+    transform: translateY(-5px) rotateX(2deg);
+  }
+
+  .hero-title {
+    text-align: left;
+    padding-right: 5%; /* Gives some breathing room on the right */
+  }
+  .services-list {
+    grid-template-columns: 1fr;
+  }
+  /* tab links for about me */
+  .tab-titles {
+    margin: 30px 20px 0 0; /* Add space on mobile too */
+    display: flex;
+    flex-direction: column;
+    min-width: 100px;
+  }
+
+  .about-col-2 {
+    display: flex;
+    flex-direction: column; /* Default for desktop */
+  }
+
+  .tab-titles {
+    display: flex;
+    flex-direction: column;
+    border-left: 2px solid rgba(0, 0, 0, 0.05); /* This is the "track" */
+    padding-left: 10px;
+  }
+
+  .tab-links {
+    padding-left: 10px;
+    margin-bottom: 5px;
+    position: relative;
+    /* Start with a transparent border so the text doesn't 'jump' when active */
+    border-left: 4px solid transparent;
+    transition: all 0.3s cubic-bezier(0.19, 1, 0.22, 1);
+    opacity: 0.5; /* Makes inactive tabs look "asleep" */
+  }
+
+  .tab-links.active-link {
+    opacity: 1;
+    color: #ce2380;
+    padding-left: 15px; /* Slight push to the right for "Solid" feedback */
+    font-weight: 700;
+  }
+
+  .tab-links::after {
+    /* Line becomes a vertical indicator on the left instead of bottom */
+    left: -10px;
+    bottom: 0;
+    width: 3px;
+    height: 0;
+  }
+
+  .tab-links.active-link::after {
+    width: 3px;
+    height: 100%;
+  }
+
+  .tab-contents {
+    flex: 1; /* Content takes up the remaining horizontal space */
+    padding-left: 10px;
+  }
+
+  .header-text {
+    margin-top: 0 !important; /* Overrides your current 20% margin */
+  }
+
+  #header {
+    height: 80vh; /* Slightly shorter on mobile often looks better */
+  }
+  /* 1. Ensure the section is "clickable" and not blurred */
+  #portfolio {
+    margin-top: -1.5px; /* Use a slight negative margin to overlap the sections */
+    position: relative; /* Ensures it stays on top of the overlap */
+    z-index: 1;
+    background-color: #fff;
+    opacity: 1 !important;
+    transform: none !important;
+    z-index: 10 !important;
+  }
+  .image-text {
+    z-index: 15; /* Sits above image but below link */
+    pointer-events: none;
+    width: 80%;
+  }
+  .header-text h1 {
+    font-size: 40px;
+  }
+  nav .fa-solid {
+    display: block;
+    font-size: 25px;
+  }
+
+  nav ul {
+    /* Layout */
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 70%;
+    height: 100dvh;
+    padding-top: 80px;
+    display: flex;
+    flex-direction: column;
+    z-index: 9999; /* Boosted to ensure it stays on top */
+
+    /* Glassmorphism Styles */
+    background: rgba(255, 255, 252, 0.75);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    border-left: 1px solid rgba(0, 0, 0, 0.05);
+
+    /* The "Smoothness" Fix */
+    transform: translateX(100%);
+    /* Use 'all' only for the slide, avoid animating filters if possible */
+    transition: transform 0.5s cubic-bezier(0.19, 1, 0.22, 1);
+
+    /* Hardware acceleration without breaking visibility */
+    will-change: transform;
+    backface-visibility: hidden;
+  }
+
+  /* When the menu is "open", we slide it back to 0 */
+  nav ul.menu-open {
+    transform: translateX(0);
+  }
+  /* Ensure each list item behaves like a block */
+  nav ul li {
+    display: block;
+    margin: 20px 25px; /* Adjust spacing between menu items */
+    width: 100%; /* Makes the clickable area wider */
+    opacity: 0;
+    transform: translateX(30px);
+    transition: opacity 0.4s ease, transform 0.4s cubic-bezier(0.19, 1, 0.22, 1);
+  }
+  /* When the menu is open, trigger the animation for the items */
+  nav ul.menu-open li {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  /* Staggering the timing for each link */
+  nav ul.menu-open li:nth-child(1) {
+    transition-delay: 0.1s;
+  }
+  nav ul.menu-open li:nth-child(2) {
+    transition-delay: 0.15s;
+  }
+  nav ul.menu-open li:nth-child(3) {
+    transition-delay: 0.2s;
+  }
+  nav ul.menu-open li:nth-child(4) {
+    transition-delay: 0.25s;
+  }
+  nav ul.menu-open li:nth-child(5) {
+    transition-delay: 0.3s;
+  }
+  nav ul li a {
+    color: var(--accent-color);
+  }
+  nav .fa-bars,
+  .logo {
+    padding-top: 5px;
+  }
+  nav ul .fa-solid {
+    position: absolute;
+    top: 25px;
+    left: 25px;
+    cursor: pointer;
+    color: var(--accent-color);
+  }
+  .sub-title {
+    font-size: 40px;
+  }
+  .about-col-1,
+  .about-col-2 {
+    flex-basis: 100%;
+  }
+  .about-col-1 {
+    margin-bottom: 30px;
+  }
+  .about-col-2 {
+    min-width: 100%;
+  }
+  .tab-links {
+    font-size: 16px;
+  }
+  .contact-left,
+  .contact-right {
+    flex-basis: 100%;
+  }
+  .contact-left {
+    border-right: 0px solid #464646;
+    flex-basis: 35%;
+  }
+  .contact-left p {
+    font-size: 20px;
+  }
+  .copyright {
+    font-size: 14px;
+  }
+}
+
+html {
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+}
+
+.about-col-2 {
+  display: block !important;
+}
+
+.tab-contents:has(picflow-gallery) {
+  margin-top: 40px;
+  text-align: center !important;
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+}
+
+/* This ONLY targets tabs inside the image gallery section */
+#imagegallery .tab-contents {
+  min-height: 80vh; /* Using vh (viewport height) is more responsive than px */
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+/* This ensures the loader within the gallery tab also respects the height */
+#imagegallery .gallery-loader {
+  min-height: 400px;
+}
+
+/* 3. Ensure the text-heavy tabs stay professional (Left Aligned) */
+.tab-contents:not(:has(picflow-gallery)) {
+  text-align: left !important;
+  padding-left: 10px;
+}
+
+/* 4. Keep Picflow centered within its specific tab */
+picflow-gallery {
+  display: inline-block !important; /* Helps with text-align: center */
+  margin: 0 auto !important;
+  width: 100% !important;
+}
+
+/* This only runs on devices with a mouse/pointer */
+@media screen and (hover: hover) and (pointer: fine) {
+  .back-to-top:hover {
+    background: #111111 !important;
+    transform: scale(1.1) !important;
+    cursor: pointer;
+  }
+}
+
+/* This targets touch devices specifically to "reset" the button */
+@media screen and (pointer: coarse) {
+  .back-to-top:hover,
+  .back-to-top:active {
+    background: var(--accent-pink) !important; /* Forces it to stay pink */
+    transform: translateY(0) !important; /* Stops it from jumping/scaling */
+  }
+}
+
+#header,
+#about,
+#services,
+#portfolio,
+#contact {
+  /* 1. Hardware Acceleration (The Mobile Fix) */
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+
+  /* 2. Perspective (Fixed Syntax Error) */
+  -webkit-perspective: 1000px;
+  perspective: 1000px; /* Added standard property */
+
+  /* 3. The "Z-Axis" Trick (Actually triggers the GPU) */
+  -webkit-transform: translate3d(0, 0, 0);
+  transform: translate3d(0, 0, 0);
+}
+

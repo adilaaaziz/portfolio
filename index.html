@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Adil Aziz Portfolio</title>
+    <link rel="icon" type="image/x-icon" href="Images/favico.png" />
+    <link rel="stylesheet" href="style.css" />
+
+    <script src="https://kit.fontawesome.com/95c0363b05.js" crossorigin="anonymous"></script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap"
+      rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Reenie+Beanie&display=swap" rel="stylesheet" />
+  </head>
+
+  <body>
+    <div class="navbar">
+      <div class="container">
+        <nav>
+          <a href=""><img src="Images/logo.png" class="logo" alt="Logo" /></a>
+          <ul id="sidemenu">
+            <li><a href="#header" class="active" onclick="closemenu()">Home</a></li>
+            <li><a href="#about" onclick="closemenu()">About</a></li>
+            <li><a href="#services" onclick="closemenu()">Services</a></li>
+            <li><a href="#portfolio" onclick="closemenu()">Portfolio</a></li>
+            <li><a href="#contact" onclick="closemenu()">Contact</a></li>
+            <li><a href="flexibot.html" class="nav-special" onclick="closemenu()">FlexiBot</a></li>
+            <i class="fa-solid fa-xmark" onclick="closemenu()"></i>
+          </ul>
+          <i class="fa-solid fa-bars" onclick="openmenu()"></i>
+        </nav>
+      </div>
+    </div>
+
+    <div id="header">
+      <div class="container">
+        <h1 class="hero-title">The Art &<br />Design Work of<br /><span>Adil Aziz</span></h1>
+      </div>
+    </div>
+
+    <div class="content-section">
+      <div id="about">
+        <div class="container">
+          <div class="row">
+            <div class="about-col-1">
+              <img src="Images/Reel (cropped).gif" loading="lazy" />
+            </div>
+            <div class="about-col-2">
+              <h1 class="sub-title">About Me</h1>
+              <p>
+                I'm a freelance developer and artist based in Malaysia that's
+                here to help translate your ambitions into user-friendly digital
+                products. My focus is on delivering projects that are not just
+                pleasing to the eye, but built for long-term maintainability and
+                performance.
+              </p>
+
+              <div class="tab-titles">
+                <p class="tab-links active-link" onclick="opentab('skills')">
+                  Skills
+                </p>
+                <p class="tab-links" onclick="opentab('experience')">
+                  Experience
+                </p>
+                <p class="tab-links" onclick="opentab('education')">
+                  Philosophy
+                </p>
+              </div>
+
+              <div class="tab-contents active-tab active-tab-default" id="skills">
+                <ul>
+                  <li>
+                    <span>Design & UX</span>
+                    <p>
+                      Leveraging my artist background to ensure intuitive
+                      design, seamless user experience, and aesthetic appeal.
+                    </p>
+                  </li>
+                  <li>
+                    <span>Front-End Development</span>
+                    <p>
+                      Building dynamic, responsive interfaces using CSS/Sass,
+                      React, and TypeScript.
+                    </p>
+                  </li>
+                  <li>
+                    <span>Digital Art & Animation</span>
+                    <p>
+                      Creating unique aesthetics and custom animations, drawing
+                      from years of competition-winning experience.
+                    </p>
+                  </li>
+                </ul>
+              </div>
+
+              <div class="tab-contents" id="experience">
+                <ul>
+                  <li>
+                    <span>LLM Applications</span>
+                    <p>
+                      Utilizing LLM APIs to build specialized features, from
+                      automation workflows to dynamic content generation.
+                    </p>
+                  </li>
+                  <li>
+                    <span>Technical Consulting</span>
+                    <p>
+                      Providing guidance on architecture and digital strategy to
+                      bridge the gap between art and code.
+                    </p>
+                  </li>
+                  <li>
+                    <span>Clean Development</span>
+                    <p>
+                      Writing well-documented, tested, and optimized code for
+                      easy future scaling and maintenance.
+                    </p>
+                  </li>
+                </ul>
+              </div>
+
+              <div class="tab-contents" id="education">
+                <ul>
+                  <li>
+                    <span>Partner, Not Contractor</span>
+                    <p>
+                      I prioritize clear communication and predictable results
+                      through a transparent, collaborative workflow.
+                    </p>
+                  </li>
+                  <li>
+                    <span>Discovery & Strategy</span>
+                    <p>
+                      I deep-dive into your goals and needs to define a clear,
+                      strategic path forward before writing a single line of
+                      code.
+                    </p>
+                  </li>
+                  <li>
+                    <span>Long-Term Value</span>
+                    <p>
+                      I build with the future in mind, ensuring your digital
+                      product remains fast and maintainable as your brand grows.
+                    </p>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div id="services">
+        <div class="container">
+          <h1 class="sub-title">My Services</h1>
+          <div class="services-list">
+            <div>
+              <i class="fa-solid fa-pen"></i>
+              <h2>Digital Art</h2>
+              <p>
+                Custom digital illustrations and concept art tailored for
+                personal projects or commercial branding, blending traditional
+                techniques with modern digital tools
+              </p>
+              <a href="portfolio.html">View Art Gallery</a>
+            </div>
+            <div>
+              <i class="fa-solid fa-crop"></i>
+              <h2>UI/UX Design</h2>
+              <p>
+                Creating intuitive, user-centric interfaces that focus on
+                seamless navigation and aesthetic appeal to improve user
+                retention and satisfaction
+              </p>
+              <a href="flexibot.html">Learn more</a>
+            </div>
+            <div>
+              <i class="fa-solid fa-hashtag"></i>
+              <h2>Custom AI Solutions</h2>
+              <p>
+                Go beyond generic AI. I build specialized, intelligent
+                agents—from automated customer support to immersive RPG
+                narrators—tailored to your brand’s voice and specific technical
+                workflows."
+              </p>
+              <a href="#">View Samples</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div id="portfolio">
+        <div class="container">
+          <h1 class="sub-title">My Work</h1>
+
+          <div class="work-list">
+            <div class="card-wrap">
+              <a href="portfolio.html" class="card-link">
+                <div class="card-container">
+                  <div class="card-bg" style="background-image: url('Images/work-1.png')"></div>
+
+                  <div class="card-info">
+                    <h1>Digital Arts</h1>
+                    <p>
+                      A curated look at my journey through digital illustration
+                    </p>
+                    <span class="fake-btn">View Project</span>
+                  </div>
+                </div>
+              </a>
+            </div>
+
+            <div class="card-wrap">
+              <a href="project2.html" class="card-link">
+                <div class="card-container">
+                  <div class="card-bg">
+                    <video autoplay loop muted playsinline>
+                      <source src="Images/flexibotcard.mp4" type="video/mp4">
+                    </video>
+                  </div>
+
+                  <div class="card-info">
+                    <h1>Flexibot</h1>
+                    <p>
+                      Level up your Discord game! Meet the modular sidekick built to handle your
+                      server's chaos with custom AI and smart automation.
+                    </p>
+                    <span class="fake-btn">View Project</span>
+                  </div>
+                </div>
+              </a>
+            </div>
+
+            <div class="card-wrap">
+              <a href="project3.html" class="card-link">
+                <div class="card-container">
+                  <div class="card-bg" style="background-image: url('Images/smirk.gif')"></div>
+                  <div class="card-info">
+                    <h1>coming soon</h1>
+                    <p>
+                      Something big is rendering
+                    </p>
+                    <span class="fake-btn">View Project</span>
+                  </div>
+                </div>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div id="contact">
+        <div class="container">
+          <div class="row">
+            <div class="contact-left">
+              <h1 class="sub-title">Say hi!</h1>
+              <p>adilaaaziz99@gmail.com</p>
+              <div class="social-icons">
+                <ul>
+                  <li>
+                    <a class="instagram" href="https://www.instagram.com/your-profile">
+                      <span></span><span></span><span></span><span></span>
+                      <i class="fa-brands fa-instagram"></i>
+                    </a>
+                  </li>
+                  <li>
+                    <a class="twitter" href="https://twitter.com/your-profile">
+                      <span></span><span></span><span></span><span></span>
+                      <i class="fa-brands fa-x-twitter"></i>
+                    </a>
+                  </li>
+                  <li>
+                    <a class="dribbble" href="#">
+                      <span></span><span></span><span></span><span></span>
+                      <i class="fa-brands fa-dribbble"></i>
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <div class="contact-right">
+              <form>
+                <input type="text" name="Name" placeholder="Your Name" required />
+                <input type="email" name="email" placeholder="Your Email" required />
+                <textarea name="Message" rows="6" placeholder="Your Message"></textarea>
+                <button type="submit" class="btn">Submit</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <footer class="footer">
+      <div class="container">
+        <div class="footer-row">
+          <div class="footer-col">
+            <img src="Images/logo.png" class="footer-logo" alt="Logo" />
+            <p>
+              BOOM BOOM BOOM
+            </p>
+          </div>
+
+          <div class="footer-col">
+            <h3>Explore</h3>
+            <ul>
+              <li><a href="#" class="scroll-to-top">Home</a></li>
+              <li><a href="#about">About</a></li>
+              <li><a href="#services">Services</a></li>
+              <li><a href="#portfolio">Portfolio</a></li>
+              <li><a href="#contact">Contact</a></li>
+              <li><a href="flexibot.html">Flexibot</a></li>
+            </ul>
+          </div>
+
+          <div class="footer-col">
+            <h3>Contact</h3>
+            <p>Email: adilaaaziz99@gmail.com</p>
+            <p>Location: Malaysia</p>
+            <div class="footer-socials">
+              <a href="#"><i class="fa-brands fa-instagram"></i></a>
+              <a href="#"><i class="fa-brands fa-linkedin"></i></a>
+              <a href="#"><i class="fa-brands fa-twitter"></i></a>
+            </div>
+          </div>
+        </div>
+
+        <div class="footer-bottom">
+          <p>
+            &copy; 2024 Adil Aziz. Built with
+            <i class="fa-solid fa-heart"></i> and Coffee.
+          </p>
+        </div>
+      </div>
+    </footer>
+
+    <a href="#header" id="backToTop" class="back-to-top">
+      <i class="fas fa-arrow-up"></i>
+    </a>
+
+    <script>
+      /**
+       * CONSOLIDATED SITE SCRIPTS
+       * Includes: Tab logic, Navigation, Section Focus, Smooth Scroll, 
+       * 3D Card Parallax, Hero Title Stagger, and Portfolio Reveal.
+       */
+
+      // --- 1. GLOBALS & TAB LOGIC ---
+      var tablinks = document.getElementsByClassName("tab-links");
+      var tabcontents = document.getElementsByClassName("tab-contents");
+      var sidemenu = document.getElementById("sidemenu");
+      const sections = document.querySelectorAll("#header, #about, #services, #portfolio, #contact");
+
+      function opentab(tabname, event) {
+        const clickedElement = event ? event.currentTarget : document.querySelector(`.tab-links[onclick*="${tabname}"]`);
+        if (!clickedElement) return;
+
+        const parentContainer = clickedElement.closest('.about-col-2');
+        const localLinks = parentContainer.querySelectorAll(".tab-links");
+        const localContents = parentContainer.querySelectorAll(".tab-contents");
+        const targetTab = document.getElementById(tabname);
+
+        for (let tablink of localLinks) {
+          tablink.classList.remove("active-link");
+        }
+        for (let tabcontent of localContents) {
+          tabcontent.classList.remove("active-tab");
+          tabcontent.style.display = "none";
+        }
+
+        clickedElement.classList.add("active-link");
+        if (targetTab) {
+          targetTab.style.display = "block";
+          // We keep the class for the CSS animation to trigger
+          targetTab.classList.add("active-tab");
+        }
+      }
+
+      // --- 2. NAVIGATION & MENU LOGIC ---
+      function openmenu() {
+        document.querySelector("nav ul").classList.add("menu-open");
+      }
+      function closemenu() {
+        document.querySelector("nav ul").classList.remove("menu-open");
+      }
+
+      // Close menu when clicking outside
+      document.addEventListener("click", function (event) {
+        const isClickInsideMenu = sidemenu.contains(event.target);
+        const isClickOnBarsIcon = event.target.classList.contains("fa-bars");
+        if (!isClickInsideMenu && !isClickOnBarsIcon && sidemenu.classList.contains("menu-open")) {
+          closemenu();
+        }
+      });
+
+      // --- 3. SCROLL INTERACTORS (Focus, Smooth Scroll, Back to Top) ---
+      // --- 3. SCROLL INTERACTORS (Focus, Smooth Scroll, Back to Top) ---
+      const observerOptions = {
+        root: null,
+        rootMargin: "-40% 0px -40% 0px", // Trigger when section is in the middle of the screen
+        threshold: 0,
+      };
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          // Handle Section Focus (Blur/Opacity)
+          if (entry.isIntersecting) {
+            entry.target.classList.add("section-focus");
+
+            // --- NAVBAR HIGHLIGHT LOGIC ---
+            const id = entry.target.getAttribute("id");
+            const navLinks = document.querySelectorAll("#sidemenu li a");
+
+            navLinks.forEach((link) => {
+              link.classList.remove("active");
+              if (link.getAttribute("href") === `#${id}`) {
+                link.classList.add("active");
+              }
+            });
+          } else {
+            entry.target.classList.remove("section-focus");
+          }
+        });
+      }, observerOptions);
+
+      sections.forEach((section) => {
+        observer.observe(section);
+      });
+
+      // Smooth scroll for anchor links
+      document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+        anchor.addEventListener("click", function (e) {
+          e.preventDefault();
+          const targetId = this.getAttribute("href");
+          const targetElement = document.querySelector(targetId);
+
+          if (targetElement) {
+            let offsetPosition;
+
+            if (window.innerWidth <= 600) {
+              // MOBILE: Align to top (with a tiny 20px gap for breathing room)
+              const navHeight = 70; // Adjust this based on your navbar height
+              offsetPosition = targetElement.getBoundingClientRect().top + window.pageYOffset - navHeight;
+            } else {
+              // DESKTOP: Keep your original "Center Focus" logic
+              offsetPosition =
+                targetElement.getBoundingClientRect().top +
+                window.pageYOffset -
+                window.innerHeight / 2 +
+                targetElement.offsetHeight / 2;
+            }
+
+            window.scrollTo({ top: offsetPosition, behavior: "smooth" });
+
+            if (window.innerWidth <= 600) {
+              closemenu();
+            }
+          }
+        });
+      });
+
+      // Back to Top Logic
+      const backToTop = document.getElementById("backToTop");
+      window.addEventListener("scroll", () => {
+        if (window.pageYOffset > 400) {
+          backToTop.classList.add("show");
+        } else {
+          backToTop.classList.remove("show");
+        }
+      });
+
+      backToTop.addEventListener("click", (e) => {
+        e.preventDefault();
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      });
+
+      // Special case for Header Nav Link
+      document.querySelector('nav ul li a[href="#header"]').addEventListener("click", function (e) {
+        e.preventDefault();
+        window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
+        closemenu();
+      });
+
+      // Generic Scroll to Top class
+      document.querySelectorAll(".scroll-to-top").forEach((link) => {
+        link.addEventListener("click", function (e) {
+          e.preventDefault();
+          window.scrollTo({ top: 0, behavior: "smooth" });
+        });
+      });
+
+      // --- 4. 3D CARD PARALLAX EFFECT ---
+      document.querySelectorAll(".card-wrap").forEach((wrap) => {
+        const card = wrap.querySelector(".card-container");
+        const bg = wrap.querySelector(".card-bg");
+
+        wrap.addEventListener("mousemove", (e) => {
+          const rect = wrap.getBoundingClientRect();
+          const x = e.clientX - rect.left;
+          const y = e.clientY - rect.top;
+          const px = x / rect.width - 0.5;
+          const py = y / rect.height - 0.5;
+
+          document.documentElement.style.setProperty('--mouse-x-pct', x);
+          document.documentElement.style.setProperty('--mouse-y-pct', y);
+          card.style.transform = `rotateY(${px * 30}deg) rotateX(${py * -30}deg)`;
+          bg.style.transform = `translateX(${px * -40}px) translateY(${py * -40}px)`;
+        });
+
+        wrap.addEventListener("mouseleave", () => {
+          card.style.transform = `rotateY(0deg) rotateX(0deg)`;
+          bg.style.transform = `translateX(0px) translateY(0px)`;
+          // Note: 'container' was used in original snippet; usually matches 'card'
+          card.style.transition = "transform 0.7s cubic-bezier(0.175, 0.885, 0.32, 1.275)";
+        });
+      });
+
+      // --- 5. INITIALIZATION ON DOM LOAD ---
+      document.addEventListener("DOMContentLoaded", () => {
+        // Initial Tab
+        opentab("skills");
+
+        // HERO TITLE STAGGER LOGIC
+        const heroTitle = document.querySelector('.hero-title');
+        if (heroTitle) {
+          let delayCounter = 0;
+          const step = 0.05;
+
+          const processNode = (node) => {
+            if (node.nodeType === Node.TEXT_NODE) {
+              const text = node.textContent;
+              const fragment = document.createDocumentFragment();
+              const isInsideSpan = node.parentNode.tagName === 'SPAN';
+
+              [...text].forEach((char) => {
+                const letterSpan = document.createElement('span');
+                letterSpan.textContent = char === ' ' ? '\u00A0' : char;
+                if (isInsideSpan) letterSpan.classList.add('bold-letter');
+
+                letterSpan.style.display = 'inline-block';
+                letterSpan.style.opacity = '0';
+                letterSpan.style.transform = 'translateY(110%)';
+                letterSpan.style.animation = `staggeredLetterReveal 0.8s cubic-bezier(0.19, 1, 0.22, 1) forwards`;
+                letterSpan.style.animationDelay = `${0.1 + (delayCounter * step)}s`;
+
+                if (char !== ' ' && char !== '\n') delayCounter++;
+                fragment.appendChild(letterSpan);
+              });
+              node.parentNode.replaceChild(fragment, node);
+            } else if (node.nodeType === Node.ELEMENT_NODE) {
+              [...node.childNodes].forEach(processNode);
+            }
+          };
+          [...heroTitle.childNodes].forEach(processNode);
+          heroTitle.classList.add('js-loaded');
+        }
+
+        // PORTFOLIO REVEAL & MOBILE TAP LOGIC
+        (function () {
+          const cardObserver = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                entry.target.classList.add('active');
+                cardObserver.unobserve(entry.target);
+              }
+            });
+          }, { threshold: 0.1 });
+
+          const portfolioCards = document.querySelectorAll('.card-wrap');
+          portfolioCards.forEach((card) => {
+            card.classList.add('reveal');
+            cardObserver.observe(card);
+
+            card.addEventListener('click', function (e) {
+              if (window.innerWidth <= 600 && !e.target.closest('.fake-btn')) {
+                e.preventDefault();
+                this.classList.toggle('is-active');
+              }
+            });
+          });
+        })();
+      });
+
+      window.addEventListener('scroll', () => {
+        document.documentElement.style.setProperty('--scroll-y', window.scrollY);
+      });
+
+    </script>
+
+
+  </body>
+
+</html>

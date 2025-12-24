@@ -1,0 +1,2111 @@
+/* ============================================================
+   1. CORE RESET & TYPOGRAPHY
+   ============================================================ */
+
+@import url("https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap");
+
+:root {
+  /* Spacing System */
+  --section-spacing: 100px;
+  --container-padding: 30px;
+  --card-padding: 40px;
+  --gap-standard: 30px;
+
+  /* Colors */
+  --bg-color: #fffffc;
+  --accent-color: #111111;
+  --accent-pink: #ce2380;
+  --accent-main: #00f2ff;
+  --glass-bg: rgba(255, 255, 255, 0.08);
+  --glass-border: rgba(255, 255, 255, 0.2);
+  --glass-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Plus Jakarta Sans", sans-serif;
+}
+
+/* Disable heavy effects for older hardware or low-power modes */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation: none !important;
+    transition: none !important;
+    backdrop-filter: none !important;
+    filter: none !important;
+  }
+}
+
+/* Unified Section Spacing */
+section,
+.deploy-page,
+.about-section,
+.how-it-works {
+  padding: var(--section-spacing) 0;
+  width: 100%;
+  position: relative;
+  clear: both;
+}
+
+.container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 var(--container-padding);
+}
+
+body {
+  padding-top: 120px;
+  color: #ffffff;
+  min-height: 100vh;
+  overflow-x: hidden;
+  background: #0f172a;
+  animation: fadeInPage 0.8s ease-in-out;
+}
+
+@keyframes fadeInPage {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes liquidReveal {
+  0% {
+    opacity: 0;
+    filter: blur(15px) brightness(0.8) saturate(50%);
+    transform: scale(1.02); /* Slight 'zoom out' into place */
+  }
+  100% {
+    opacity: 1;
+    filter: blur(0) brightness(1) saturate(100%);
+    transform: scale(1);
+  }
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    -45deg,
+    #0f172a, /* Deep Navy */
+    #312e81, /* Indigo */
+    #701a75, /* Deep Fuchsia */
+    #1e1b4b  /* Midnight Blue */
+  );
+  background-size: 400% 400%;
+  animation: gradient 10s ease infinite;
+  z-index: -20;
+}
+
+/* 3. The Shapes - Floating above the colors, but below the site */
+.floating-bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: -10;
+  pointer-events: none;
+  transform: translateY(calc(var(--scroll-y, 0) * 0.2px)); /* Move background slower than foreground */
+  will-change: transform;
+}
+
+.shape {
+  position: absolute;
+  z-index: -10;
+  opacity: 0.7; /* Make them strong so we can verify they work */
+}
+
+.shape img {
+  width: 200%;
+  height: 200%;
+  display: block;
+  object-fit: contain; /* Ensures the PNG doesn't stretch weirdly */
+}
+
+/* Individual Sizing and Placement */
+.s1 {
+  width: 180px;
+  height: 180px;
+  top: 2%;
+  left: 2%;
+  animation: float-c 30s infinite ease-in-out;
+  filter: blur(2px);
+}
+.s2 {
+  width: 140px;
+  height: 140px;
+  top: 70%;
+  left: 85%;
+  animation: float-b 35s infinite ease-in-out reverse;
+  filter: blur(1px);
+}
+.s3 {
+  width: 80px;
+  height: 80px;
+  top: 50%;
+  left: 15%;
+  animation: float-a 22s infinite ease-in-out;
+  color: yellow;
+}
+.s4 {
+  width: 100px;
+  height: 100px;
+  top: 10%;
+  left: 80%;
+  animation: float-b 20s infinite ease-in-out;
+}
+.s5 {
+  width: 90px;
+  height: 90px;
+  top: 80%;
+  left: 10%;
+  animation: float-a 18s infinite ease-in-out reverse;
+}
+
+/* Small distant 'dust' particles */
+.s6 {
+  width: 50px;
+  height: 50px;
+  top: 25%;
+  left: 40%;
+  opacity: 0.3;
+  animation: float-a 12s infinite linear;
+}
+.s7 {
+  width: 15px;
+  height: 15px;
+  top: 60%;
+  left: 30%;
+  opacity: 0.2;
+  animation: float 40s infinite linear reverse;
+}
+.s8 {
+  width: 40px;
+  height: 40px;
+  top: 10%;
+  left: 50%;
+  opacity: 0.4;
+  color: var(--accent-pink);
+  animation: float-c 25s infinite ease-in-out;
+}
+.s9 {
+  width: 25px;
+  height: 25px;
+  top: 80%;
+  left: 60%;
+  opacity: 0.2;
+  animation: float 35s infinite linear;
+}
+
+/* Give different shapes different 'depth' speeds */
+.s1, .s4, .s8 { --depth: 0.15; }
+.s2, .s3, .s5 { --depth: 0.08; }
+.s6, .s7, .s9 { --depth: 0.03; } /* Distant 'dust' moves very slowly */
+
+/* Variation A: Drifting Diagonal */
+@keyframes float-a {
+  0%, 100% { transform: translate(0, 0) rotate(0deg) scale(1); }
+  33% { transform: translate(40px, -60px) rotate(15deg) scale(1.1); }
+  66% { transform: translate(-30px, 30px) rotate(-10deg) scale(0.95); }
+}
+
+/* Variation B: Slow Circular Wobble */
+@keyframes float-b {
+  0%, 100% { transform: translate(0, 0) rotate(0deg); }
+  25% { transform: translate(-50px, 20px) rotate(-20deg) scale(1.05); }
+  50% { transform: translate(10px, 60px) rotate(5deg) scale(1); }
+  75% { transform: translate(40px, -30px) rotate(15deg) scale(0.9); }
+}
+
+/* Variation C: Deep Pulse (best for large shapes) */
+@keyframes float-c {
+  0%, 100% { transform: translate(0, 0) scale(1); opacity: 0.7; }
+  50% { transform: translate(0, -100px) scale(1.2); opacity: 0.4; }
+}
+
+@keyframes float {
+  0% {
+    transform: translate(0, 0) rotate(0deg) scale(1);
+  }
+  33% {
+    transform: translate(30px, -50px) rotate(10deg) scale(1.1);
+  }
+  66% {
+    transform: translate(-20px, 20px) rotate(-10deg) scale(0.9);
+  }
+  100% {
+    transform: translate(0, 0) rotate(0deg) scale(1);
+  }
+}
+
+.studio-wrapper:hover ~ .floating-bg .shape {
+  color: rgba(206, 35, 128, 0.08); /* Subtle shift to your accent pink */
+}
+/* ============================================================
+   2. NAVBAR
+   ============================================================ */
+
+.navbar h1 {
+  font-weight: 700;
+  font-size: 16px;
+  color: var(--accent-color);
+}
+
+.navbar {
+  position: fixed;
+  top: 20px; /* Floating look, common in Liquid Glass */
+  left: 50%;
+  transform: translateX(-50%);
+  width: 90%; /* Doesn't touch edges for a 'capsule' feel */
+  max-width: 1400px;
+  border-radius: 40px; /* Super rounded 'squircle' edges */
+  z-index: 1000;
+  padding: 6px 30px;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+
+  /* 1. The Core Material */
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(30px) saturate(150%) brightness(1.1);
+  -webkit-backdrop-filter: blur(30px) saturate(150%) brightness(1.1);
+
+  /* 2. The Specular Edge (The "Shine") */
+  border: 1px solid rgba(255, 255, 255, 0.4);
+
+  /* 3. The Depth & Shadow (The "Floating" feel) */
+  box-shadow: inset 0 0 20px rgba(255, 255, 255, 0.1),
+    /* Inner glow */ 0 8px 32px rgba(0, 0, 0, 0.1),
+    /* Soft outer shadow */ 0 1px 1px rgba(255, 255, 255, 0.3); /* Sharp top highlight */
+
+    filter: none;
+}
+
+/* Hover effect for the whole bar to make it feel 'Liquid' */
+.navbar:hover {
+  background: rgba(255, 255, 255, 0.15);
+  transform: translateX(-50%) scale(1.02); /* Subtle expansion like a liquid droplet */
+}
+
+.navbar .container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0%; /* Matches your site's side spacing */
+}
+
+/* 2. The Nav handles the "Most Left" and "Most Right" positioning */
+nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* This pushes logo left and ul right */
+  flex-wrap: wrap;
+  padding: 10px 0;
+}
+/* 3. Ensure the list of links doesn't have extra margin pushing it away */
+nav ul {
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.logo {
+  cursor: pointer;
+  width: 30px;
+  transition: all 0.2s;
+}
+.logo:hover {
+  filter: opacity(60%);
+}
+
+nav .fa-solid {
+    display: none; /* This hides BOTH the bars and the X on desktop */
+}
+nav ul li {
+  display: inline-block;
+  list-style: none;
+  margin: 5px 5px;
+  line-height: 1;
+}
+nav ul li a {
+  color: var(--bg-color);
+  text-decoration: none;
+  font-size: 16px;
+  position: relative;
+  transition: color 0.5s;
+  padding: 15px 20px;
+}
+#sidemenu li a:hover {
+  color: var(--accent-color);
+  transform: scale(1.1);
+}
+/* The Bubble */
+#sidemenu li a::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  background: rgba(255, 255, 255, 0.8);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  transition: all 0.4s cubic-bezier(0.19, 1, 0.22, 1);
+  z-index: -1;
+  opacity: 0;
+}
+#sidemenu li a:hover::before {
+  width: 90%;
+  height: 80%;
+  border-radius: 20px;
+  opacity: 1;
+}
+/* Active: "Pressed" Look */
+#sidemenu li a.active::before {
+  width: 90%;
+  height: 80%;
+  border-radius: 20px;
+  opacity: 1;
+  background: var(--accent-color);
+}
+#sidemenu li a.active {
+  color: #fff !important;
+}
+/* Target the last list item specifically */
+#sidemenu li:last-of-type a {
+  color: var(--accent-color); /* Or a slightly different shade */
+  opacity: 1;
+  font-weight: 700;
+}
+
+/* Mobile Adjustment: Make it look like a standard link again in the side menu */
+@media only screen and (max-width: 600px) {
+  #sidemenu li:last-child a {
+    border: none;
+    background: none;
+    margin-left: 0;
+    padding: 0;
+    color: var(--accent-color);
+  }
+}
+
+/* ============================================================
+   3. STUDIO LAYOUT (RESTORED FROM ORIGINAL FLEXIBOT)
+   ============================================================ */
+
+.sub-title {
+  font-size: 70px;
+  font-weight: 700;
+  color: var(--bg-color);
+}
+
+.container {
+  max-width: 1400px; /* Your "Perfect" width */
+  margin: 0 auto; /* Centers the container */
+  /* Use small fixed padding so content doesn't touch screen edges on mobile */
+  padding: 0 30px;
+}
+
+/* ============================================================
+   3.1 HERO TITLE & LAYOUT
+   ============================================================ */
+
+.hero-container {
+  width: 100%;
+  padding: 140px 0 60px 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.hero-main-layout {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 30px;
+  max-width: 1200px;
+  margin: 0 auto;
+  text-align: left;
+}
+
+.hero-text-group {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.hero-title {
+  text-align: left;
+  max-width: 1000px;
+  margin: 0;
+  font-size: clamp(
+    2.5rem,
+    10vw,
+    7.5rem
+  ); /* Slightly smaller start (2.5rem) for narrow phones */
+  line-height: 1.1;
+  width: 100%;
+  word-wrap: break-word;
+  font-weight: 900;
+}
+
+/* When JS finishes processing letters */
+.hero-title.js-loaded {
+  visibility: visible;
+}
+
+.hero-subtitle {
+  font-size: 1.4rem;
+  color: rgba(255, 255, 255, 0.6); /* Slightly dimmed for hierarchy */
+  font-weight: 300;
+  letter-spacing: 0.02em;
+  line-height: 1.6;
+  max-width: 550px;
+
+  /* Smooth entrance */
+  opacity: 0;
+  transform: translateY(10px);
+}
+
+.hero-subtitle.js-subtitle-animate {
+  opacity: 1 !important;
+  transform: translateY(0) !important;
+  transition: opacity 1s ease 0.5s, transform 1s ease 0.5s;
+}
+
+@keyframes subtitleFadeUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Target the letter spans */
+.hero-title span {
+  display: inline-block;
+  opacity: 0;
+  background: linear-gradient(120deg, #ffffff 20%, #a5f3fc 40%, #ffffff 60%);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: staggeredLetterReveal 0.8s cubic-bezier(0.19, 1, 0.22, 1) forwards;
+}
+
+@keyframes staggeredLetterReveal {
+  0% {
+    opacity: 0;
+    transform: translateY(110%);
+    filter: blur(5px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0);
+  }
+}
+
+/* ============================================================
+   3. ABOUT SECTION
+   ============================================================ */
+
+.about-section {
+  padding: 120px 0; /* Increased from 60px */
+}
+
+.about-row {
+  display: flex;
+  gap: 30px;
+  align-items: stretch;
+}
+
+.glass-card {
+  flex: 1;
+  border-radius: 40px;
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+}
+
+/* --- Left Side: Visual --- */
+.visual-container {
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 30px;
+  height: 100%;
+  min-height: 400px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.demo-gif {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  mix-blend-mode: lighten;
+  filter: contrast(1.1) brightness(1.2) drop-shadow(0 0 15px var(--accent-pink));
+}
+
+/* --- Right Side: Content --- */
+.section-title {
+  font-size: 2.5rem;
+  margin-bottom: 30px;
+  font-weight: 800;
+  text-align: center;
+}
+
+.feature-list {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.feature-item {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  transition: all 0.3s ease;
+}
+
+.feature-item:hover {
+  background: rgba(255, 255, 255, 0.1);
+  transform: scale(1.02);
+  border-color: var(--accent-pink);
+}
+
+.feature-icon {
+  width: 50px;
+  height: 50px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  color: var(--bg-color);
+}
+
+.feature-text h4 {
+  margin-bottom: 4px;
+  font-size: 1.1rem;
+}
+.feature-text p {
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+/* ============================================================
+   3. DEMO SECTION
+   ============================================================ */
+
+.config-card,
+.step-card,
+.chat-panel,
+.glass-card {
+  backdrop-filter: blur(30px) saturate(180%) brightness(1.1);
+  -webkit-backdrop-filter: blur(30px) saturate(180%) brightness(1.1);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-top: 1px solid rgba(255, 255, 255, 0.4);
+  border-radius: 40px;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+  background: radial-gradient(
+      800px circle at var(--mouse-x, 0) var(--mouse-y, 0),
+      rgba(255, 255, 255, 0.12),
+      transparent 40%
+    ),
+    rgba(255, 255, 255, 0.03);
+  transition: all 0.4s cubic-bezier(0.19, 1, 0.22, 1);
+  backface-visibility: hidden;
+  -webkit-font-smoothing: subpixel-antialiased;
+  transform-style: preserve-3d;
+  will-change: transform;
+  perspective: 1000px; /* Required for 3D effect */
+    transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.config-card:hover,
+.chat-panel:hover,
+.step-card:hover,
+.glass-card:hover {
+  filter: none;
+  border-color: rgba(255, 255, 255, 0.5);
+  box-shadow: 0 0 30px rgba(255, 255, 255, 0.1), var(--glass-shadow);
+  transform: translateY(-5px);
+}
+/* Only apply the liquid distortion on devices that support true hover (Desktop) */
+@media (hover: hover) {
+  .config-card:hover, 
+  .chat-panel:hover, 
+  .step-card:hover, 
+  .glass-card:hover {
+    filter: none;
+    border-color: rgba(255, 255, 255, 0.5);
+    box-shadow: 0 0 30px rgba(255, 255, 255, 0.1), var(--glass-shadow);
+    transform: 
+            translateY(-5px) 
+            rotateX(calc((var(--mouse-y-pct, 0.5) - 0.5) * -10deg)) 
+            rotateY(calc((var(--mouse-x-pct, 0.5) - 0.5) * 10deg));
+  }
+}
+/* For Mobile: Provide a simpler, non-squiggly feedback for taps */
+@media (hover: none) {
+  .config-card:active, 
+  .chat-panel:active, 
+  .step-card:active, 
+  .glass-card:active {
+    transform: scale(0.98);
+    background: rgba(255, 255, 255, 0.1);
+  }
+}
+.studio-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: stretch;
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  gap: 0;
+  transition: gap 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.has-active-chat .studio-wrapper {
+  gap: 30px; /* Adjust this number to make the gap wider or tighter */
+}
+/* --- STEP INDICATORS --- */
+.step-indicator-container {
+  display: flex;
+  gap: 30px;
+  justify-content: center;
+  margin-bottom: 40px;
+  width: 100%;
+}
+.step-dot {
+  font-size: 16px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: rgba(255, 255, 255, 0.3);
+  position: relative;
+  padding-bottom: 8px;
+  transition: all 0.4s ease;
+  font-weight: 600;
+}
+
+/* The glowing underline for the active step */
+.step-dot.active {
+  color: var(--accent-main);
+  text-shadow: 0 0 10px rgba(0, 242, 255, 0.5);
+}
+.step-dot.active::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: var(--accent-main);
+  box-shadow: 0 0 10px var(--accent-main);
+  border-radius: 2px;
+}
+.config-card {
+  height: 100%;
+  flex: 1;
+  min-width: 320px;
+  display: flex;
+  flex-direction: column;
+  padding: 40px; /* Increased padding for the wider look */
+  transition: flex 1.2s cubic-bezier(0.19, 1, 0.22, 1),
+    transform 0.5s ease;
+  padding-bottom: 40px;
+}
+/* Create a "shimmer" that moves across the glass */
+.config-card::before {
+  content: "";
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(
+    circle,
+    rgba(255, 255, 255, 0.05) 0%,
+    transparent 70%
+  );
+  pointer-events: none;
+  transition: transform 0.1s;
+}
+.chat-panel {
+  display: flex;
+  flex-direction: column;
+  height: auto;
+  align-self: stretch;
+  max-height: 85vh;
+  overflow: hidden;
+  border-radius: 40px;
+
+  /* 2. Transition State (Hidden) */
+  flex: 0.00001;
+  min-width: 0;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateX(-20px) scale(0.95);
+
+  /* 3. Unified Timing (Matches the wrapper) */
+  transition: flex 0.8s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.4s ease,
+    transform 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.has-active-chat .chat-panel {
+  flex: 1;
+  opacity: 1;
+  transform: translateX(0) scale(1);
+  pointer-events: auto;
+}
+/* 3.6 MOOD SLIDER CUSTOMIZATION */
+.mood-slider {
+  -webkit-appearance: none; /* Crucial: Disables default Chrome/Safari look */
+  appearance: none; /* Standard syntax */
+  width: 100%;
+  height: 8px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  outline: none;
+  margin: 15px 0;
+  cursor: pointer;
+}
+/* The Knob (Thumb) */
+.mood-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 22px;
+  height: 22px;
+  background: var(--accent-pink);
+  border-radius: 50%;
+  cursor: pointer;
+  box-shadow: 0 0 15px var(--accent-pink);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  border: 2px solid white;
+}
+/* For Firefox support (Optional but recommended) */
+.mood-slider::-moz-range-thumb {
+  width: 22px;
+  height: 22px;
+  background: var(--accent-pink);
+  border: 2px solid white;
+  border-radius: 50%;
+  cursor: pointer;
+}
+/* 3.3 THE MASTER FORM CONTAINER (Centering & Width) */
+.form-container {
+  width: 100%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+.form-container p {
+  font-weight: 200;
+  font-size: 24px;
+}
+/* Universal Child Centering */
+.form-container > * {
+  width: 100%;
+  max-width: 850px; /* Keeps internal content slightly tighter than container */
+  margin-bottom: 25px;
+}
+/* Input/Textarea Styling */
+input[type="text"],
+textarea,
+.mood-slider {
+  margin: 10px auto;
+  display: block;
+}
+.preset-buttons,
+.form-actions {
+  display: flex;
+  flex-direction: row !important;
+  flex-wrap: wrap;
+  justify-content: center !important;
+  align-items: center;
+  gap: 15px;
+  margin-top: 20px;
+}
+
+/* ============================================================
+   4. CHAT SYSTEM STYLES
+   ============================================================ */
+.chat-flow {
+  flex: 1; /* Grows to fill all space except the input bar */
+  min-height: 0; /* Essential for flexbox scrolling */
+  overflow-y: auto; /* Triggers the scrollbar */
+  padding: 25px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  scroll-behavior: smooth;
+}
+/* Custom scrollbar for Chrome/Safari */
+.chat-flow::-webkit-scrollbar {
+  width: 6px;
+}
+.chat-flow::-webkit-scrollbar-thumb {
+  background: var(--glass-border);
+  border-radius: 10px;
+}
+.bot-message-container,
+.user-message-container {
+  display: flex;
+  gap: 12px;
+}
+.user-message-container {
+  flex-direction: row-reverse;
+}
+
+.bubble {
+  padding: 12px 18px;
+  border-radius: 20px;
+  font-size: 15px;
+  line-height: 1.4;
+  max-width: 85%;
+  animation: messageFadeIn 0.3s ease-out forwards;
+  transform-origin: bottom;
+}
+@keyframes messageFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+@keyframes messageAppear {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.bot-bubble {
+  border-top-left-radius: 4px; /* The "tail" of the bubble */
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: white;
+  content: "";
+  display: block;
+  margin-bottom: 8px;
+}
+.user-bubble {
+  border-top-right-radius: 4px; /* The "tail" of the bubble */
+  background: var(--accent-pink); /* Use your pink variable */
+  color: white;
+  align-self: flex-end;
+  box-shadow: 0 4px 15px rgba(206, 35, 128, 0.3); /* Soft pink glow */
+}
+.avatar {
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  background: #fff;
+  flex-shrink: 0;
+}
+
+.input-area {
+  flex-shrink: 0;
+  padding: 20px;
+  /* Adds extra padding only if the device has a home bar/notch */
+  padding-bottom: calc(20px + env(safe-area-inset-bottom));
+  background: rgba(0, 0, 0, 0.3);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  border-top: 1px solid var(--glass-border);
+}
+
+.btn-send {
+  background: var(--accent-pink);
+  color: white;
+  border: none;
+  min-width: 50px; /* Lock the width */
+  height: 50px; /* Lock the height */
+  border-radius: 20px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  flex-shrink: 0; /* Prevents squishing */
+}
+
+.btn-send i {
+  font-size: 18px;
+}
+
+.btn-send:hover {
+  background: var(--accent-color);
+  color: white;
+  transform: scale(1.05);
+  filter: brightness(1.1);
+}
+
+.typing-bubble {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 20px;
+  border-top-left-radius: 4px;
+  padding: 12px 18px !important;
+  display: flex;
+  gap: 6px;
+  width: fit-content;
+  align-items: center;
+}
+
+.typing-bubble .dot {
+  width: 7px;
+  height: 7px;
+  background: white; /* White dots on dark glass */
+  border-radius: 50%;
+  opacity: 0.6;
+  animation: typing-bounce 1.4s infinite ease-in-out both;
+}
+
+.typing-bubble .dot:nth-child(1) {
+  animation-delay: -0.32s;
+}
+.typing-bubble .dot:nth-child(2) {
+  animation-delay: -0.16s;
+}
+
+@keyframes typing-bounce {
+  0%,
+  80%,
+  100% {
+    transform: scale(0.7);
+    opacity: 0.5; /* Slightly higher base visibility */
+  }
+  40% {
+    transform: scale(1.3);
+    opacity: 1;
+  }
+}
+
+.system-notification {
+  width: 100%;
+  text-align: center;
+  font-size: 13px;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.6); /* Semi-transparent white */
+  margin: 25px 0;
+  padding: 10px;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  display: block !important; /* Forces visibility */
+  backdrop-filter: blur(5px);
+  background: rgba(255, 255, 255, 0.02);
+  border-radius: 10px;
+}
+
+/* ============================================================
+   5. FORM ELEMENTS & BUTTONS
+   ============================================================ */
+.input-label {
+  display: block;
+  margin: 15px 0 8px;
+  color: var(--accent-glass);
+  font-size: 16px;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+input[type="text"],
+textarea,
+select {
+  width: 100%;
+  padding: 12px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--glass-border);
+  border-radius: 20px;
+  color: white;
+  outline: none;
+  font-size: 16px;
+}
+input[type="text"]:focus,
+textarea:focus {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: white;
+  box-shadow: 0 0 20px rgba(206, 35, 128, 0.2);
+  transform: translateY(-2px); /* Slight lift */
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  border-radius: 0px;
+}
+
+.preset-buttons {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 25px;
+  justify-content: center; /* Centers the buttons horizontally */
+  width: 100%;
+}
+
+.btn-preset {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: white;
+  padding: 10px 16px;
+  border-radius: 40px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  outline: none;
+}
+
+.btn-preset:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: translateY(-2px);
+  border-radius: 0px;
+}
+
+/* 1. The Container */
+.form-actions {
+  display: grid !important;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  /* Increase the top margin to separate actions from the inputs */
+  margin-top: 50px !important;
+  /* Add a bottom margin so it doesn't hug the bottom of the card */
+  margin-bottom: 10px;
+  width: 100%;
+}
+
+.btn-playful,
+.btn-outline {
+  width: 100% !important;
+  min-height: 65px;
+
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 10px 12px !important;
+  border-radius: 40px;
+
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 1.1;
+
+  white-space: normal;
+  word-break: break-word;
+  box-sizing: border-box;
+
+  cursor: pointer;
+
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  transform: scale(1);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Ensure the icon doesn't have its own margin pushing it away */
+.btn-playful i,
+.btn-outline i {
+  margin-bottom: 2px; /* Micro-adjustment to align with text baseline */
+  font-size: 1.2rem;
+}
+
+.btn-playful {
+  /* Remove the deep shadows that create depth */
+  box-shadow: none !important;
+  
+  /* Remove the glass-blur effect */
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  
+  /* Give it a solid, flat background instead of translucent glass */
+  background: var(--bg-color) !important; 
+  color: var(--accent-color) !important;
+  
+  /* Optional: A simple solid border instead of the glowing glass edge */
+  border: none !important;
+  
+  /* Ensure it doesn't shift when focused or hovered */
+  transform: none !important;
+}
+
+.btn-playful:hover {
+  background: var(--accent-color) !important;
+  border-color: var(--accent-color) !important;
+  color: var(--bg-color) !important;
+  box-shadow: none !important;
+  transform: translateY(-2px) !important;
+}
+
+.btn-outline {
+  background: rgba(255, 255, 255, 0.05);
+  color: white;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.btn-playful:hover,
+.btn-outline:hover {
+  transform: translateY(-4px); /* Lift up slightly more */
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3); /* Softer, deeper shadow */
+  transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1), border-radius 0.5s ease;
+  border-radius: 0px;
+}
+
+/* 3. The Click Animation (Active State) */
+.btn-playful:active,
+.btn-outline:active {
+  transform: translateY(0) scale(0.98); /* Squishes down when clicked */
+  transition: all 0.1s;
+}
+
+/* ============================================================
+   6. Deploy Section
+   ============================================================ */
+
+:root {
+  /* Ensure these are defined for the neon effects */
+  --accent-main: #00f2ff;
+  --glass-bg: rgba(255, 255, 255, 0.03);
+  --glass-border: rgba(255, 255, 255, 0.1);
+  --code-bg: rgba(13, 13, 20, 0.9);
+}
+
+.deploy-page {
+  color: #fff;
+}
+
+.main-title {
+  font-size: 4.5rem;
+  margin-bottom: 40px;
+  text-align: center;
+}
+
+/* --- STEP CARDS --- */
+
+.deploy-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 25px;
+  margin-bottom: 50px;
+}
+
+.deploy-card {
+  position: relative;
+  padding: 40px 30px;
+  border-radius: 20px;
+  background: var(--glass-bg);
+  backdrop-filter: blur(15px);
+  border: 1px solid var(--glass-border);
+  transition: all 0.3s ease;
+  overflow: hidden;
+}
+
+.deploy-card:hover {
+  border: 1px solid var(--accent-main);
+  box-shadow: 0 0 25px rgba(0, 242, 255, 0.15);
+  transform: translateY(-8px);
+}
+
+.step-num {
+  font-size: 5rem;
+  font-weight: 900;
+  color: rgba(255, 255, 255, 0.03); /* Extremely faint background number */
+  position: absolute;
+  top: -10px;
+  right: 10px;
+  user-select: none;
+  pointer-events: none;
+}
+
+.deploy-card h3 {
+  margin-bottom: 15px;
+  font-size: 1.4rem;
+  color: var(--accent-main);
+}
+
+.deploy-card p {
+  font-size: 0.95rem;
+  line-height: 1.6;
+  opacity: 0.8;
+}
+
+/* --- TERMINAL & BUTTONS --- */
+
+.terminal-mini {
+  background: #000;
+  padding: 15px;
+  border-radius: 10px;
+  font-family: "Fira Code", "Courier New", monospace;
+  color: var(--accent-main);
+  margin-top: 20px;
+  border-left: 4px solid var(--accent-main);
+  font-size: 0.85rem;
+  box-shadow: inset 0 0 10px rgba(0, 242, 255, 0.05);
+}
+
+.mini-btn,
+.text-link {
+  display: inline-block;
+  margin-top: 20px;
+  padding: 20px 20px;
+  border-radius: 40px;
+  text-decoration: none;
+  font-weight: 600;
+  transition: 0.5s ease;
+}
+
+.mini-btn {
+  background: var(--accent-main);
+  color: #000;
+  border: none;
+  cursor: pointer;
+}
+
+.mini-btn:hover {
+  background: var(--accent-pink);
+  box-shadow: var(--accent-pink);
+  border-radius: 0px;
+}
+
+.text-link {
+  border: 1px solid var(--glass-border);
+  color: #fff;
+}
+
+.text-link:hover {
+  border-color: var(--accent-main);
+  color: var(--accent-main);
+  border-radius: 0px;
+}
+
+@keyframes terminal-success {
+  0% {
+    box-shadow: 0 0 20px rgba(0, 242, 255, 0);
+  }
+  50% {
+    box-shadow: 0 0 40px rgba(0, 242, 255, 0.3);
+  }
+  100% {
+    box-shadow: 0 0 20px rgba(0, 242, 255, 0);
+  }
+}
+
+.terminal-shell.success-glow {
+  animation: terminal-success 2s ease-out;
+  border-color: var(--accent-main);
+}
+
+/* --- PRETTY CODE CONTAINER --- */
+
+.code-container {
+  margin-top: 50px;
+  border-radius: 15px;
+  overflow: hidden;
+  background: var(--code-bg);
+  border: 1px solid var(--glass-border);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
+}
+
+.code-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 25px;
+  background: rgba(255, 255, 255, 0.04);
+  border-bottom: 1px solid var(--glass-border);
+}
+
+.file-tab {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 0.9rem;
+  opacity: 0.9;
+}
+
+.copy-btn {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--glass-border);
+  color: #fff;
+  padding: 6px 14px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.8rem;
+  transition: 0.3s;
+}
+
+.copy-btn:hover {
+  background: var(--accent-main);
+  color: #000;
+  border-color: var(--accent-main);
+}
+
+/* Syntax Highlighting */
+.code-container pre {
+  padding: 30px;
+  margin: 0;
+  overflow-x: auto;
+  font-family: "Fira Code", "Courier New", monospace;
+  font-size: 1rem;
+  line-height: 1.8;
+  color: #abb2bf;
+}
+
+.token-keyword {
+  color: #c678dd;
+  font-weight: 600;
+} /* Purple */
+.token-func {
+  color: #61afef;
+} /* Blue */
+.token-str {
+  color: #98c379;
+} /* Green */
+.token-class {
+  color: #e5c07b;
+} /* Yellow */
+.token-num {
+  color: #d19a66;
+} /* Orange */
+
+.highlight-token {
+  color: #fff;
+  background: rgba(255, 255, 255, 0.1);
+  padding: 2px 6px;
+  border-radius: 4px;
+  border-bottom: 2px solid var(--accent-main);
+  text-shadow: 0 0 10px rgba(0, 242, 255, 0.5);
+}
+
+.language-tabs {
+  display: flex;
+  gap: 10px;
+}
+
+.tab-btn {
+  background: transparent;
+  border: none;
+  color: #fff;
+  opacity: 0.5;
+  padding: 8px 15px;
+  cursor: pointer;
+  font-size: 0.85rem;
+  font-weight: 600;
+  transition: 0.3s;
+  border-bottom: 2px solid transparent;
+}
+
+.tab-btn.active {
+  opacity: 1;
+  border-bottom: 2px solid var(--accent-main);
+}
+
+/* Toggle visibility */
+.code-block {
+  display: none; /* Hide all by default */
+}
+
+.code-block.active {
+  display: block; /* Show only the active one */
+}
+
+/* ============================================================
+   6. Order Section
+   ============================================================ */
+
+.steps-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 30px;
+}
+.terminal-shell:focus-within {
+  border-color: var(--accent-main);
+  box-shadow: 0 0 50px rgba(0, 242, 255, 0.1);
+}
+.deploy-card i {
+  font-size: 40px;
+  color: var(--accent-glass);
+  margin-bottom: 20px;
+}
+.ordernow p {
+  padding-bottom: 30px;
+}
+.terminal-shell {
+  width: 100%; /* Fills the container width */
+  max-width: 1400px; /* Optional: Caps it at your site's max width */
+  margin: 40px auto; /* Keeps it centered */
+  border-radius: 15px;
+  overflow: hidden;
+  background: rgba(10, 10, 15, 0.85); /* Deep dark for contrast */
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+.terminal-shell::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    var(--accent-main),
+    transparent
+  );
+  opacity: 0.5;
+}
+.terminal-header {
+  background: rgba(255, 255, 255, 0.1);
+  padding: 10px 15px;
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+.window-controls {
+  display: flex;
+  gap: 8px;
+}
+.dot {
+  height: 12px;
+  width: 12px;
+  border-radius: 50%;
+}
+.red {
+  background: #ff5f56;
+}
+.yellow {
+  background: #ffbd2e;
+}
+.green {
+  background: #27c93f;
+}
+.terminal-title {
+  position: absolute;
+  width: 100%;
+  text-align: center;
+  font-size: 0.8rem;
+  opacity: 0.5;
+  font-family: "Fira Code", monospace;
+}
+.terminal-body {
+  flex-grow: 1; /* Ensures the body fills the shell */
+  padding: 30px;
+  min-height: 400px; /* Gives it that "Command Center" feel */
+  overflow-y: auto;
+  line-height: 1.6;
+}
+.terminal-line {
+  margin-bottom: 10px;
+  font-size: 0.95rem;
+}
+.prompt {
+  color: var(--accent-main);
+  margin-right: 10px;
+}
+.output {
+  color: #fff;
+  opacity: 0.8;
+}
+.terminal-input-line {
+  display: flex;
+  align-items: center;
+}
+#terminalInput {
+  background: var(--accent-color); /* Slight tint to see the input area */
+  border: 1px solid rgba(255, 255, 255, 0.1); /* Thin border to define the box */
+  border-radius: 4px;
+  padding: 5px 10px;
+  color: var(--accent-main); /* Text matches your brand color */
+  font-family: 'Fira Code', monospace;
+  font-size: 0.95rem;
+  flex: 1;
+  outline: none;
+  caret-color: #fff; /* White blinking cursor stands out against cyan text */
+  transition: all 0.3s ease;
+}
+
+
+#terminalInput:focus {
+  background: rgba(0, 242, 255, 0.05); /* Very subtle cyan glow when typing */
+  border-color: var(--accent-main); /* Highlight border on focus */
+  box-shadow: 0 0 10px rgba(0, 242, 255, 0.2);
+}
+.terminal-question {
+    color: #fff;
+    border-left: 3px solid var(--accent-main); /* Adds a small accent bar next to the question */
+    padding-left: 10px;
+    font-weight: 600;
+    margin: 20px 0;
+}
+.terminal-footer {
+  padding: 15px;
+  background: rgba(255, 255, 255, 0.05);
+  text-align: right;
+  text-align: center
+}
+.order-btn-link {
+  border: none;
+  background: transparent;
+  color: var(--accent-main);
+  border: 1px solid var(--accent-main);
+  padding: 8px 20px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-family: "Fira Code", monospace;
+  transition: 0.3s;
+}
+.order-btn-link:hover {
+  background: var(--accent-main);
+  color: #000;
+}
+
+/* ============================================================
+   7. ANIMATIONS
+   ============================================================ */
+@keyframes smoothEntrance {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* 2. Re-map the animation name to match */
+@keyframes gradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+/* Fix the typing dots bounce */
+@keyframes bounce {
+  0%,
+  80%,
+  100% {
+    transform: scale(0);
+  }
+  40% {
+    transform: scale(1);
+  }
+}
+
+/* ****************** Footer ****************** */
+.footer {
+  background: #111111;
+  color: #ffffff;
+  padding: 80px 0 30px;
+  margin-top: 0; /* Changed from 100px to 0 */
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  position: relative;
+  z-index: 1000; /* Ensures it sits above any stray background elements */
+}
+
+.footer-row {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 40px;
+}
+
+.footer-col {
+  flex-basis: 30%;
+  min-width: 250px;
+}
+
+.footer-logo {
+  width: 40px;
+  margin-bottom: 20px;
+  filter: brightness(0) invert(1); /* Makes logo white if it's black */
+}
+
+.footer-col h3 {
+  font-size: 20px;
+  margin-bottom: 25px;
+  position: relative;
+  font-weight: 600;
+}
+
+/* The little pink underline for footer headings */
+.footer-col h3::after {
+  content: "";
+  width: 30px;
+  height: 2px;
+  background: var(--accent-pink);
+  position: absolute;
+  bottom: -8px;
+  left: 0;
+}
+
+.footer-col p {
+  color: #bbbbbb;
+  font-size: 15px;
+  line-height: 1.8;
+}
+
+.footer-col ul {
+  list-style: none;
+}
+
+.footer-col ul li {
+  margin-bottom: 12px;
+}
+
+.footer-col ul li a {
+  color: #bbbbbb;
+  text-decoration: none;
+  transition: 0.3s;
+  font-size: 15px;
+}
+
+.footer-col ul li a:hover {
+  color: var(--accent-pink);
+  padding-left: 5px;
+}
+
+.footer-socials {
+  margin-top: 20px;
+}
+
+.footer-socials a {
+  color: #fff;
+  font-size: 20px;
+  margin-right: 15px;
+  transition: 0.3s;
+}
+
+.footer-socials a:hover {
+  color: var(--accent-pink);
+  transform: translateY(-3px);
+  display: inline-block;
+}
+
+.footer-bottom {
+  text-align: center;
+  margin-top: 60px;
+  padding-top: 25px;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.footer-bottom p {
+  font-size: 14px;
+  color: #888;
+}
+
+.footer-bottom i {
+  color: var(--accent-pink);
+}
+
+.content-section {
+  overflow: visible !important;
+  background: var(--bg-color);
+}
+
+#contact {
+  padding-bottom: 80px; /* Use padding instead of margin for spacing */
+  margin-bottom: 0;
+}
+
+/* --- Back to Top Button --- */
+.back-to-top {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  background: var(--accent-pink);
+  color: #fff;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  z-index: 99999 !important; /* Extremely high to stay above the footer/navbar */
+  cursor: pointer !important;
+  opacity: 0; /* Hidden by default */
+  visibility: hidden;
+  transition: all 0.4s cubic-bezier(0.19, 1, 0.22, 1);
+  transform: translateY(20px); /* Slight slide-up effect when appearing */
+  pointer-events: none;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.back-to-top.show {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+@media (hover: hover) {
+  .back-to-top:hover {
+    background: #111111 !important;
+    transform: scale(1.1);
+  }
+}
+
+/* Mobile adjustments */
+@media only screen and (max-width: 600px) {
+  .footer-col {
+    flex-basis: 100%;
+    text-align: center;
+  }
+  .footer-col h3::after {
+    left: 50%;
+    transform: translateX(-50%);
+  }
+}
+
+.scroll-to-top {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  width: 50px;
+  height: 50px;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 50%;
+  display: flex; /* Changed from 'none' to 'flex' to start */
+  align-items: center;
+  justify-content: center;
+  color: white;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  z-index: 1000;
+  opacity: 0; /* Hidden by default until we scroll */
+  visibility: hidden;
+}
+
+.scroll-to-top.show {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.scroll-to-top:hover {
+  background: var(--accent-main);
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+}
+
+#hero-mascot {
+  display: inline-block !important;
+  /* Increase these three to make it bigger */
+  width: 300px !important;
+  min-width: 150px !important;
+  max-width: 300px !important;
+  /* This ensures the 'slot' in the flexbox grows with the image */
+  flex: 0 0 300px !important;
+
+  height: auto !important;
+  opacity: 0;
+  filter: drop-shadow(0 0 25px rgba(165, 243, 252, 0.4));
+  animation: smoothEntrance 0.8s cubic-bezier(0.19, 1, 0.22, 1) forwards,
+    floating 3s ease-in-out infinite;
+  animation-delay: 0.2s, 1s;
+}
+
+/* ============================================================
+   MOBILE OPTIMIZATIONS (Max-width: 768px)
+   ============================================================ */
+@media only screen and (max-width: 768px) {
+  :root {
+    --section-spacing: 60px; /* Reduce massive desktop gaps */
+    --container-padding: 20px;
+  }
+
+  body {
+    padding-top: 80px; /* Smaller header space */
+  }
+
+  .container {
+    padding: 0 15px; /* Narrower gutters for small screens */
+  }
+
+  /* 5. Mobile Navbar Navigation */
+  nav .fa-solid {
+    display: block; /* Show bars and X icons */
+    color: #fff;
+    font-size: 25px;
+    cursor: pointer;
+    z-index: 10001;
+  }
+
+  /* The base state of the icon */
+nav .fa-bars {
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    color: #fff;
+    font-size: 25px;
+    z-index: 10001;
+    position: relative;
+}
+
+/* The state when the menu is OPEN */
+nav .fa-bars.open {
+    color: var(--accent-main); /* Changes to your terminal cyan/pink */
+    transform: rotate(180deg); /* Smoothly flips */
+    text-shadow: 0 0 15px var(--accent-main); /* Adds a "Neon" glow to the button */
+}
+
+/* Optional: Change the icon character itself using the ::before pseudo-element */
+/* This swaps the 'bars' for an 'X' symbol via FontAwesome unicode */
+nav .fa-bars.open::before {
+    content: "\f00d"; /* The FontAwesome unicode for 'xmark' */
+}
+
+  #sidemenu {
+  position: fixed;
+  top: 78px; 
+  left: 50%;
+  transform: translateX(-50%) scale(0.9);
+  width: 94%;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  padding: 40px 20px;
+  z-index: 9999 !important;
+  gap: 50px;
+  padding: 60px 20px;
+  
+  /* 1. The Glass Core */
+  background: rgba(20, 20, 25, 0.7); /* Slightly darker for readability */
+  backdrop-filter: blur(25px) saturate(180%) brightness(1.2);
+  -webkit-backdrop-filter: blur(25px) saturate(180%) brightness(1.2);
+  
+  /* 2. The Shape */
+  border-radius: 32px;
+  
+  /* 3. The Specular Edge (Top-down lighting) */
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-top: 1px solid rgba(255, 255, 255, 0.5); /* Brighter top edge */
+  
+  /* 4. Multi-Layer Depth Shadow */
+  box-shadow: 
+    0 4px 15px rgba(0, 0, 0, 0.4),            /* Grounding shadow */
+    0 25px 50px rgba(0, 0, 0, 0.6),           /* Ambient occlusion */
+    inset 0 0 20px rgba(255, 255, 255, 0.05); /* Inner glow */
+
+  /* Animation */
+  opacity: 0;
+  pointer-events: none;
+  transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+#sidemenu li:last-child a {
+    color: var(--accent-pink); /* Amber/Gold color */
+    font-weight: bold;
+}
+
+/* Optional: Change the ripple/hover color for just this link */
+#sidemenu li:last-child a:hover {
+    background: rgba(255, 204, 0, 0.1);
+    color: #fff;
+}
+
+/* 5. The Noise Texture Overlay */
+#sidemenu::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 32px;
+  background-image: url("https://www.transparenttextures.com/patterns/stardust.png"); /* Subtle grain */
+  opacity: 0.05;
+  pointer-events: none;
+  z-index: -1;
+}
+
+  /* When the menu is active */
+  #sidemenu.active {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateX(-50%) scale(1);
+  }
+
+  #sidemenu li {
+    list-style: none;
+    margin: 5px 0;
+    text-align: center;
+    opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.5s ease;
+}
+
+#sidemenu.active li {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+#sidemenu.active li:nth-child(1) { transition-delay: 0.1s; }
+#sidemenu.active li:nth-child(2) { transition-delay: 0.2s; }
+#sidemenu.active li:nth-child(3) { transition-delay: 0.3s; }
+#sidemenu.active li:nth-child(4) { transition-delay: 0.4s; }
+
+#sidemenu li a {
+  position: relative;
+  font-size: 1.3rem;
+  color: rgba(255, 255, 255, 0.9);
+  padding: 15px;
+  margin: 5px 0;
+  border-radius: 18px;
+  transition: all 0.3s ease;
+  overflow: hidden;
+  padding: 18px 25px; 
+  font-size: 1.4rem;
+  letter-spacing: 2px; /* Tech-style spacing */
+}
+
+#sidemenu li a:active, 
+#sidemenu li a:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: var(--accent-main); /* Your terminal cyan */
+  box-shadow: inset 0 0 10px rgba(255, 255, 255, 0.05);
+  transform: scale(0.98); /* Slight "press" effect */
+}
+
+#sidemenu li a:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+  #sidemenu .fa-solid {
+    position: absolute;
+    top: 25px;
+    left: 25px;
+  }
+
+#sidemenu .fa-xmark {
+  position: absolute;
+  top: 30px;
+  left: 30px;
+  font-size: 22px;
+  color: var(--accent-main);
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+#sidemenu .fa-xmark:hover {
+  transform: rotate(90deg) scale(1.2);
+}
+
+  .code-block {
+    overflow-x: auto;
+    white-space: pre;
+    font-size: 13px;
+  }
+
+  /* 1. Hero Section */
+  .hero-main-layout {
+    flex-direction: column; /* Stack GIF and Title */
+    text-align: center;
+    gap: 15px;
+  }
+
+  .hero-text-group {
+    align-items: center;
+  }
+
+  .hero-title {
+    font-size: 3.5rem; /* Scale down the clamp value */
+    text-align: center;
+  }
+
+  .hero-subtitle {
+    font-size: 1.1rem;
+    br { display: none; } /* Remove line breaks for better wrapping */
+  }
+
+  /* 2. About Section */
+  .about-row {
+    flex-direction: column;
+  }
+
+  .visual-container {
+    min-height: 250px; /* Reduce height on mobile */
+  }
+
+  .section-title {
+    font-size: 1.8rem;
+  }
+
+  /* 3. Studio/Demo Section */
+  .studio-wrapper {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .config-card, .step-card {
+    min-width: 100% !important; 
+    padding: 20px;
+  }
+
+  .has-active-chat .chat-panel {
+    min-height: 500px; /* Give it a fixed height on mobile */
+    width: 100%;
+  }
+
+  .form-actions {
+    flex-direction: column; /* Stack buttons vertically */
+    gap: 10px;
+  }
+
+  .btn-playful, .btn-outline {
+    width: 100%; /* Full width buttons for easier tapping */
+  }
+
+  /* 4. Deploy & Grid Sections */
+  .deploy-grid, .steps-grid {
+    grid-template-columns: 1fr; /* Force single column */
+    gap: 20px;
+  }
+
+  .work-list {
+  display: grid;
+  grid-template-columns: 1fr !important; /* Forces single column for portfolio items */
+  gap: 40px;
+}
+
+  .code-container {
+    margin: 0 -10px; /* Slight bleed to allow more code space */
+    border-radius: 20px;
+  }
+
+  .language-tabs {
+    overflow-x: auto; /* Allow scrolling if tabs are too wide */
+  }
+}
+
+/* Fix for the viewport-fit/scrolling issue found in your snippet */
+html, body {
+  overflow-x: hidden;
+  width: 100%;
+  position: relative;
+}

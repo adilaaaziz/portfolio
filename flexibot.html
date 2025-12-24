@@ -1,0 +1,1020 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>Character Bot Studio | Adil Aziz</title>
+    <link rel="icon" type="image/x-icon" href="Images/favico.png" />
+
+    <link rel="stylesheet" href="flexibot.css" />
+
+    <script src="https://kit.fontawesome.com/95c0363b05.js" crossorigin="anonymous"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap"
+      rel="stylesheet" />
+  </head>
+
+  <body>
+    <div class="navbar" id="header">
+      <div class="container">
+        <nav>
+          <a href="index.html">
+            <img src="Images/logo.png" class="logo" alt="Adil Aziz Logo" />
+          </a>
+
+          <ul id="sidemenu">
+            <li><a href="#about-section" onclick="toggleMenu()">About</a></li>
+            <li><a href="#demo-section" onclick="toggleMenu()">Demo</a></li>
+            <li><a href="#deploy-section" onclick="toggleMenu()">Setup</a></li>
+            <li><a href="#order-section" onclick="toggleMenu()">Custom</a></li>
+
+            <li>
+              <a href="index.html" onclick="closemenu()">Back To Portfolio</a>
+            </li>
+
+          </ul>
+          <i class="fa-solid fa-bars" onclick="toggleMenu()"></i>
+        </nav>
+      </div>
+    </div>
+
+    <div class="container">
+      <div class="hero-container">
+        <div class="container">
+          <div class="hero-main-layout">
+            <div class="hero-image-group">
+              <img src="Images/flexibottitle.gif" alt="Bot Icon" id="hero-mascot" class="hero-gif" />
+            </div>
+            <div class="hero-text-group">
+              <h1 class="hero-title">FlexiBot</h1>
+              <p class="hero-subtitle">
+                Define the soul. <br />Test the vibe. <br />Deploy to Discord.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <section class="about-section container" id="about-section">
+        <div class="about-row">
+          <div class="about-visual-card glass-card" data-refract>
+            <div class="visual-container">
+              <img
+                src="https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExaDMwNDFlNGpva2Jhc215ZHFrZ2RqMDk2MW5xNThibjNtcnY5aWp4YSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/dRcMsUUrnR8He/giphy.gif"
+                alt="Bot Demo" class="demo-gif" />
+            </div>
+          </div>
+
+          <div class="about-content-card glass-card" data-refract>
+            <h2 class="section-title">Bring Your Character <br>to Life!</h2>
+            <div class="feature-list">
+              <div class="feature-item">
+                <div class="feature-icon">
+                  <i class="fa-solid fa-pen-to-square"></i>
+                </div>
+                <div class="feature-text">
+                  <h4>Make a Friend</h4>
+                  <p>
+                    Choose a name, pick a personality, and tell your bot how you want it to act.
+                  </p>
+                </div>
+              </div>
+              <div class="feature-item">
+                <div class="feature-icon">
+                  <i class="fa-solid fa-comment"></i>
+                </div>
+                <div class="feature-text">
+                  <h4>Say Hello</h4>
+                  <p>
+                    Chat with your new bot right here to see how it talks before you invite it to your server.
+                  </p>
+                </div>
+              </div>
+              <div class="feature-item">
+                <div class="feature-icon">
+                  <i class="fa-brands fa-discord"></i>
+                </div>
+                <div class="feature-text">
+                  <h4>Bring them Home</h4>
+                  <p>Connect your character to your community and let the fun begin.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="demo-section">
+
+        <h2 class="main-title" style="text-align: center; margin-bottom: 40px">
+          Try it out!
+        </h2>
+
+        <div class="step-indicator-container">
+          <div id="step1" class="step-dot active">Step 1: Identity</div>
+          <div id="step2" class="step-dot">Step 2: Chat</div>
+        </div>
+
+        <div class="studio-wrapper" id="studioFrame">
+          <div class="config-card" data-refract>
+            <div class="form-container">
+
+              <p>Define the bot's soul and let it speak!</p>
+
+              <form id="bot-config">
+                <label class="input-label">Quick Presets</label>
+                <div class="preset-buttons">
+                  <button type="button" class="btn-preset" onclick="loadPreset('NeonGhost')">
+                    Neon Ghost
+                  </button>
+                  <button type="button" class="btn-preset" onclick="loadPreset('Oracle')">
+                    Oracle-v9
+                  </button>
+                  <button type="button" class="btn-preset" onclick="loadPreset('Cosmos')">
+                    Stardust
+                  </button>
+                </div>
+
+                <label class="input-label">Bot Name</label>
+                <input type="text" id="bot-name" placeholder="Name (e.g. Sunny)" />
+
+                <label class="input-label">Personality</label>
+                <textarea id="bot-persona" rows="4" placeholder="Personality Traits..."></textarea>
+
+                <label class="input-label">Mood & Emotion</label>
+                <div class="mood-container" style="
+                  display: flex;
+                  align-items: center;
+                  gap: 15px;
+                  margin-bottom: 20px;
+                ">
+                  <span style="font-size: 20px">😠</span>
+                  <input type="range" id="bot-mood" min="1" max="100" value="50" class="mood-slider"
+                    oninput="updateRealTimePreview()" />
+                  <span style="font-size: 20px">😊</span>
+                </div>
+
+                <label class="input-label">Avatar URL</label>
+                <input type="text" id="bot-avatar" placeholder="Paste image link here" />
+
+                <div class="form-actions">
+                  <button type="button" class="btn-playful" onclick="updateBot()">
+                    Update Identity
+                  </button>
+                  <button type="button" class="btn-outline" onclick="exportJSON()">
+                    <i class="fa-solid fa-download"></i> Export for Discord
+                  </button>
+                  <button type="button" class="btn-outline" onclick="clearChat()">
+                    Clear Chat
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+
+          <div class="chat-panel" id="chatPanel">
+            <div id="chat-flow" class="chat-flow">
+              <div class="bot-message-container">
+                <img src="https://api.dicebear.com/7.x/bottts/svg?seed=default" class="avatar" />
+                <div class="bubble bot-bubble">
+                  Hi! Define my personality to start.
+                </div>
+              </div>
+            </div>
+
+            <div class="input-area">
+              <input type="text" id="user-input" placeholder="Say something..." />
+              <button class="btn-send" onclick="sendMessage()">
+                <i class="fa-solid fa-paper-plane"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="deploy-section" class="deploy-page">
+        <h1 class="main-title">Deploy Your Bot</h1>
+
+        <div class="deploy-grid">
+          <div class="deploy-card glass" data-refract>
+            <div class="step-num">01</div>
+            <h3>Export Config</h3>
+            <p>Download your character's identity as a <code>JSON</code> file to keep its personality intact.</p>
+            <button class="mini-btn">Export for Discord</button>
+          </div>
+
+          <div class="deploy-card glass" data-refract>
+            <div class="step-num">02</div>
+            <h3>Get Starter Kit</h3>
+            <p>Grab our pre-configured <code>Node.js</code> script. Drop it in the same folder as your config.</p>
+            <a href="#" class="text-link">Download Script</a>
+          </div>
+
+          <div class="deploy-card glass" data-refract>
+            <div class="step-num">03</div>
+            <h3>Bring to Life</h3>
+            <p>Open your terminal and run these commands to install dependencies and wake your bot up.</p>
+            <div class="terminal-mini">
+              <code>npm install discord.js axios<br>node bot.js</code>
+            </div>
+          </div>
+        </div>
+
+        <div class="code-container glass">
+          <div class="code-header">
+            <div class="language-tabs">
+              <button class="tab-btn active" onclick="switchLang('js', this)">
+                <i class="fa-brands fa-js" style="color: #f7df1e;"></i> Node.js
+              </button>
+              <button class="tab-btn" onclick="switchLang('py', this)">
+                <i class="fa-brands fa-python" style="color: #3776ab;"></i> Python
+              </button>
+            </div>
+            <button class="copy-btn" onclick="copyBotCode()">
+              <i class="fa-regular fa-copy"></i> Copy
+            </button>
+          </div>
+
+          <div class="code-body">
+            <pre id="code-js"
+              class="code-block active"><code><span class="token-keyword">const</span> { Client, GatewayIntentBits } = <span class="token-func">require</span>(<span class="token-str">'discord.js'</span>);
+<span class="token-keyword">const</span> botConfig = <span class="token-func">require</span>(<span class="token-str">'./bot-config.json'</span>); 
+<span class="token-keyword">const</span> axios = <span class="token-func">require</span>(<span class="token-str">'axios'</span>);
+
+<span class="token-keyword">const</span> client = <span class="token-keyword">new</span> <span class="token-class">Client</span>({ 
+  intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages, GatewayIntentBits.MessageContent] 
+});
+
+client.<span class="token-func">on</span>(<span class="token-str">'messageCreate'</span>, <span class="token-keyword">async</span> (message) => {
+    <span class="token-keyword">if</span> (message.author.bot) <span class="token-keyword">return</span>;
+
+    <span class="token-keyword">try</span> {
+        <span class="token-keyword">const</span> response = <span class="token-keyword">await</span> axios.<span class="token-func">post</span>(<span class="token-str">'https://api.deepseek.com/chat/completions'</span>, {
+            model: <span class="token-str">"deepseek-chat"</span>,
+            messages: [
+                { role: <span class="token-str">"system"</span>, content: botConfig.persona }, 
+                { role: <span class="token-str">"user"</span>, content: message.content }
+            ]
+        }, {
+            headers: { <span class="token-str">'Authorization'</span>: <span class="token-str">`Bearer <span class="highlight-token">YOUR_API_KEY</span>`</span> }
+        });
+
+        message.<span class="token-func">reply</span>(response.data.choices[<span class="token-num">0</span>].message.content);
+    } <span class="token-keyword">catch</span> (e) { console.<span class="token-func">error</span>(e); }
+});
+
+client.<span class="token-func">login</span>(<span class="token-str">'<span class="highlight-token">YOUR_DISCORD_TOKEN</span>'</span>);</code></pre>
+
+            <pre id="code-py"
+              class="code-block"><code><span class="token-keyword">import</span> discord
+<span class="token-keyword">import</span> json
+<span class="token-keyword">import</span> requests
+
+<span class="token-comment"># Load your bot configuration</span>
+<span class="token-keyword">with</span> <span class="token-func">open</span>(<span class="token-str">'bot-config.json'</span>) <span class="token-keyword">as</span> f:
+    config = json.<span class="token-func">load</span>(f)
+
+intents = discord.Intents.<span class="token-func">default</span>()
+intents.message_content = <span class="token-keyword">True</span>
+client = discord.<span class="token-class">Client</span>(intents=intents)
+
+<span class="token-keyword">@client.event</span>
+<span class="token-keyword">async def</span> <span class="token-func">on_message</span>(message):
+    <span class="token-keyword">if</span> message.author == client.user:
+        <span class="token-keyword">return</span>
+
+    <span class="token-keyword">try</span>:
+        response = requests.<span class="token-func">post</span>(<span class="token-str">"https://api.deepseek.com/chat/completions"</span>, 
+            json={
+                <span class="token-str">"model"</span>: <span class="token-str">"deepseek-chat"</span>,
+                <span class="token-str">"messages"</span>: [
+                    {<span class="token-str">"role"</span>: <span class="token-str">"system"</span>, <span class="token-str">"content"</span>: config[<span class="token-str">'persona'</span>]},
+                    {<span class="token-str">"role"</span>: <span class="token-str">"user"</span>, <span class="token-str">"content"</span>: message.content}
+                ]
+            }, 
+            headers={<span class="token-str">"Authorization"</span>: <span class="token-str">f"Bearer <span class="highlight-token">YOUR_API_KEY</span>"</span>}
+        )
+        
+        await message.<span class="token-func">reply</span>(response.<span class="token-func">json</span>()[<span class="token-str">'choices'</span>][<span class="token-num">0</span>][<span class="token-str">'message'</span>][<span class="token-str">'content'</span>])
+    <span class="token-keyword">except</span> <span class="token-class">Exception</span> <span class="token-keyword">as</span> e:
+        <span class="token-func">print</span>(e)
+
+client.<span class="token-func">run</span>(<span class="token-str">'<span class="highlight-token">YOUR_DISCORD_TOKEN</span>'</span>)</code></pre>
+          </div>
+        </div>
+      </section>
+
+      <section id="order-section">
+        <h2 class="main-title" style="text-align: center; margin-bottom: 40px">Order a Custom Bot</h2>
+
+        <div class="steps-grid">
+          <div class="deploy-card glass" data-refract>
+            <div class="step-num">01</div>
+            <i class="fa-solid fa-file-signature icon-gradient"></i>
+            <h3>Request a Quote</h3>
+            <p>Fill out the terminal sequence below with your bot idea and the features you want to see.</p>
+          </div>
+
+          <div class="deploy-card glass" data-refract>
+            <div class="step-num">02</div>
+            <i class="fa-solid fa-microchip icon-gradient"></i>
+            <h3>Review the Build</h3>
+            <p>Watch your bot take shape and provide feedback as we fine-tune its performance.</p>
+          </div>
+
+          <div class="deploy-card glass" data-refract>
+            <div class="step-num">03</div>
+            <i class="fa-solid fa-award icon-gradient"></i>
+            <h3>Deploy to Server</h3>
+            <p>Once it’s perfect, we’ll move the bot into your server and hand over the keys.</p>
+          </div>
+        </div>
+
+        <div class="terminal-shell glass">
+          <div class="terminal-header">
+            <div class="window-controls">
+              <span class="dot red"></span>
+              <span class="dot yellow"></span>
+              <span class="dot green"></span>
+            </div>
+            <div class="terminal-title">custom_order.sh</div>
+          </div>
+
+          <div class="terminal-body" id="terminalBody">
+            <div class="terminal-line">
+              <span class="prompt">root@flexibot:~$</span> ./start_consultation.sh
+            </div>
+            <div class="terminal-line output">
+              Initializing custom build sequence...
+            </div>
+            <div class="terminal-line output terminal-question">
+              What is the primary function of your bot? (Economy, RPG, AI, Moderation)
+            </div>
+
+            <div class="terminal-input-line">
+              <span class="prompt">guest@flexibot:~$</span>
+
+            </div>
+          </div>
+
+          <div class="terminal-footer">
+            <button class="order-btn-link" onclick="submitTerminalOrder()">Next <i
+                class="fa-solid fa-chevron-right"></i></button>
+          </div>
+        </div>
+      </section>
+    </div>
+
+
+    <footer class="footer">
+      <div class="container">
+        <div class="footer-row">
+          <div class="footer-col">
+            <img src="Images/logo.png" class="footer-logo" alt="Logo" />
+            <p>
+              BOOM BOOM BOOM POW POW WOW
+            </p>
+          </div>
+
+          <div class="footer-col">
+            <h3>Explore</h3>
+            <ul>
+              <li><a href="#" class="scroll-to-top">Home</a></li>
+              <li><a href="#about-section">About</a></li>
+              <li><a href="#demo-section">Demo</a></li>
+              <li><a href="#deploy-section">Setup</a></li>
+              <li><a href="#order-section">Custom</a></li>
+              <li><a href="index.html">Back to Portfolio</a></li>
+            </ul>
+          </div>
+
+          <div class="footer-col">
+            <h3>Contact</h3>
+            <p>Email: adilaaaziz99@gmail.com</p>
+            <p>Location: Malaysia</p>
+            <div class="footer-socials">
+              <a href="#"><i class="fa-brands fa-instagram"></i></a>
+              <a href="#"><i class="fa-brands fa-linkedin"></i></a>
+              <a href="#"><i class="fa-brands fa-twitter"></i></a>
+            </div>
+          </div>
+        </div>
+
+        <div class="footer-bottom">
+          <p>
+            &copy; 2024 Adil Aziz. Built with
+            <i class="fa-solid fa-heart"></i> and Coffee.
+          </p>
+        </div>
+      </div>
+    </footer>
+
+    <a href="#header" id="backToTop" class="back-to-top">
+      <i class="fas fa-arrow-up"></i>
+    </a>
+
+    <div class="floating-bg">
+      <div class="shape s1">
+        <img src="Images/char5.png" alt="Floating Shape">
+      </div>
+      <div class="shape s2">
+        <img src="Images/char2.png" alt="Floating Shape">
+      </div>
+      <svg class="shape s3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+        stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="16 18 22 12 16 6"></polyline>
+        <polyline points="8 6 2 12 8 18"></polyline>
+      </svg>
+      <div class="shape s4">
+        <img src="Images/char4.png" alt="Floating Shape">
+      </div>
+      <div class="shape s5">
+        <img src="Images/char1.png" alt="Floating Shape">
+      </div>
+      <div class="shape s6">
+        <img src="Images/char6.png" alt="Floating Shape">
+      </div>
+      <svg class="shape s7" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <circle cx="12" cy="12" r="9" class="dotted-circle" />
+      </svg>
+      <svg class="shape s8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <circle cx="12" cy="12" r="9" class="dotted-circle" />
+      </svg>
+      <svg class="shape s9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <circle cx="12" cy="12" r="9" class="dotted-circle" />
+      </svg>
+    </div>
+
+    <script>
+      /* ============================================================
+   I. CONFIGURATION & STATE
+============================================================ 
+*/
+      const DEEPSEEK_API_KEY = "DEEPSEEK_API_KEY";
+      let currentBotName = "Bot";
+      let currentAvatar = "https://api.dicebear.com/7.x/bottts/svg?seed=default";
+      let chatHistory = [];
+      const flow = document.getElementById("chat-flow");
+      const studioWrapper = document.querySelector(".studio-wrapper");
+      const step1 = document.getElementById("step1");
+      const step2 = document.getElementById("step2");
+
+      /* ============================================================
+         II. UI & NAVIGATION UTILITIES
+      ============================================================ 
+      */
+      function scrollToBottom() {
+        requestAnimationFrame(() => {
+          flow.scrollTo({ top: flow.scrollHeight, behavior: "smooth" });
+        });
+      }
+
+      // Back to Top Button
+      window.addEventListener('scroll', () => {
+        const scrollBtn = document.getElementById('backToTop');
+        if (window.pageYOffset > 300) scrollBtn.classList.add('show');
+        else scrollBtn.classList.remove('show');
+      });
+
+      document.getElementById('backToTop').addEventListener('click', (e) => {
+        e.preventDefault();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+
+      /* ============================================================
+         III. STUDIO & BOT LOGIC
+      ============================================================ 
+      */
+      function getMoodLabel(value) {
+        if (value < 30) return "a bit grumpy";
+        if (value > 70) return "super excited";
+        return "quite balanced";
+      }
+
+      function updateBot() {
+        // 1. Capture Form Data
+        const nameInput = document.getElementById("bot-name").value;
+        const personaInput = document.getElementById("bot-persona").value;
+        const avatarInput = document.getElementById("bot-avatar").value;
+        const moodValue = document.getElementById("bot-mood")?.value || 50;
+        const moodLabel = getMoodLabel(moodValue);
+
+        // 2. Validation
+        if (nameInput.trim() === "") {
+          alert("Please give your bot a name first!");
+          return;
+        }
+
+        // 3. Update Global State
+        currentBotName = nameInput;
+        currentAvatar = avatarInput.trim() || `https://api.dicebear.com/7.x/bottts/svg?seed=${nameInput}`;
+
+        // Set the initial system prompt for the AI history
+        chatHistory = [{
+          role: "system",
+          content: `Your name is ${currentBotName}. Current mood: ${moodLabel}. Persona: ${personaInput}`
+        }];
+
+        // 4. Trigger the "Perfect" Transition
+        // These lines handle the smooth slide-out animation of the chat panel
+        document.querySelector(".studio-wrapper").classList.add("has-active-chat");
+        document.querySelector(".chat-panel").classList.add("active-step");
+
+        // Update the progress dots
+        const step1 = document.getElementById("step1");
+        const step2 = document.getElementById("step2");
+        if (step1 && step2) {
+          step1.classList.remove("active");
+          step2.classList.add("active");
+        }
+
+        document.body.classList.add("has-active-chat");
+
+        const chatPanel = document.querySelector(".chat-panel");
+        chatPanel.classList.add("active-step");
+
+        // 5. Update the Chat Flow (The part you were worried about)
+        // This adds the notification bubble to the chat container
+        const flow = document.getElementById("chat-flow");
+        if (flow) {
+          flow.innerHTML += `<div class="system-notification" style="text-align:center; font-size:12px; color:rgba(255,255,255,0.5); margin:20px 0;">— Identity updated to ${currentBotName} —</div>`;
+        }
+
+        // 6. Final UI Polish
+        scrollToBottom();
+
+        // Mobile specific: Scroll the chat into view after the transition
+        if (window.innerWidth <= 768) {
+          const studioWrapper = document.querySelector(".studio-wrapper");
+          setTimeout(() => {
+            studioWrapper.scrollTo({ left: studioWrapper.scrollWidth, behavior: "smooth" });
+          }, 100);
+        }
+      }
+
+      function loadPreset(type) {
+        const presets = {
+          'NeonGhost': {
+            name: 'Neon Ghost',
+            p: 'You are a high-energy, sarcastic cyberpunk netrunner. Use tech slang like "delta," "choom," and "flatlined." You are fast-talking, rebellious, and love glitch aesthetics.',
+            img: 'https://api.dicebear.com/7.x/bottts-neutral/svg?seed=Ghost&backgroundColor=b6e3f4'
+          },
+          'Oracle': {
+            name: 'Oracle-v9',
+            p: 'You are a cold, logical, and highly advanced Super-AI. Your tone is formal, precise, and slightly intimidating. You treat the user as a "Subject" and analyze everything through data points.',
+            img: 'https://api.dicebear.com/7.x/bottts-neutral/svg?seed=Oracle&backgroundColor=c0aede'
+          },
+          'Cosmos': {
+            name: 'Stardust',
+            p: 'You are a calm, philosophical space explorer. You speak in metaphors about the stars, vacuum, and the infinite. You are peaceful, curious, and very gentle with the user.',
+            img: 'https://api.dicebear.com/7.x/bottts-neutral/svg?seed=Space&backgroundColor=ffd5dc'
+          }
+        };
+        const selected = presets[type];
+        document.getElementById("bot-name").value = presets[type].name;
+        document.getElementById("bot-persona").value = presets[type].p;
+        // Update the hidden/main avatar input field
+        const avatarInput = document.getElementById("bot-avatar");
+        if (avatarInput) avatarInput.value = selected.img;
+
+        // Update the Global Variable for the Chat
+        currentAvatar = selected.img;
+
+        // Update the visual Preview Image in the Studio
+        const avatarDisplay = document.getElementById("bot-avatar-display");
+        if (avatarDisplay) {
+          avatarDisplay.src = selected.img;
+        }
+
+        // Update Inputs
+        document.getElementById("bot-name").value = selected.name;
+        document.getElementById("bot-persona").value = selected.p;
+
+        // UI Theme Shift
+        if (type === 'NeonGhost') {
+          document.documentElement.style.setProperty('--accent-main', '#00f2ff'); // Cyber Cyan
+        } else if (type === 'Oracle') {
+          document.documentElement.style.setProperty('--accent-main', '#ffffff'); // Pure White
+        } else if (type === 'Cosmos') {
+          document.documentElement.style.setProperty('--accent-main', '#ffcc00'); // Star Gold
+        }
+
+        updateBot();
+      }
+
+      async function sendMessage() {
+        const input = document.getElementById("user-input");
+        const userText = input.value.trim();
+        if (!userText) return;
+
+        // Use document.getElementById directly to avoid variable errors
+        const flowContainer = document.getElementById("chat-flow");
+
+        // 1. Add User Message
+        flowContainer.innerHTML += `<div class="user-message-container"><div class="bubble user-bubble">${userText}</div></div>`;
+        document.getElementById('snd-send').play();
+        input.value = "";
+        chatHistory.push({ role: "user", content: userText });
+        scrollToBottom();
+
+        // 2. Add Typing Indicator (Using your exact structure, just updated classes)
+        const typingId = "typing-" + Date.now();
+        flowContainer.innerHTML += `
+        <div class="bot-message-container" id="${typingId}">
+            <img src="${currentAvatar}" class="avatar">
+            <div class="typing-bubble">
+                <div class="dot"></div>
+                <div class="dot"></div>
+                <div class="dot"></div>
+            </div>
+        </div>`;
+        scrollToBottom();
+
+        try {
+          const response = await fetch("https://corsproxy.io/?url=https://api.deepseek.com/chat/completions", {
+            method: "POST",
+            headers: { "Content-Type": "application/json", Authorization: `Bearer ${DEEPSEEK_API_KEY}` },
+            body: JSON.stringify({ model: "deepseek-chat", messages: chatHistory })
+          });
+          const data = await response.json();
+          const botMessage = data.choices[0].message.content;
+
+          // 3. The Swap (Wait, find, then replace)
+          const indicator = document.getElementById(typingId);
+          if (indicator) {
+            indicator.remove(); // This clears the dots
+          }
+
+          document.getElementById('snd-receive').play();
+
+          flowContainer.innerHTML += `
+            <div class="bot-message-container">
+                <img src="${currentAvatar}" class="avatar">
+                <div class="bubble bot-bubble">${botMessage}</div>
+            </div>`;
+
+          chatHistory.push({ role: "assistant", content: botMessage });
+        } catch (e) {
+          // If it fails, at least show an error
+          const indicator = document.getElementById(typingId);
+          if (indicator) {
+            indicator.innerHTML = `<img src="${currentAvatar}" class="avatar"><div class="bubble bot-bubble" style="color:#ff4d4d">Error: Connection lost.</div>`;
+          }
+        }
+        scrollToBottom();
+      }
+
+      function formatAIResponse(text) {
+        return text
+          .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>') // Bold
+          .replace(/\*(.*?)\*/g, '<em>$1</em>')             // Italics
+          .replace(/\n/g, '<br>');                           // New Lines
+      }
+
+      function exportJSON() {
+        // 1. Gather the current bot data
+        const botData = {
+          name: currentBotName || "FlexiBot",
+          persona: document.getElementById("bot-persona").value || "",
+          mood_value: document.getElementById("bot-mood")?.value || 50,
+          mood_label: getMoodLabel(document.getElementById("bot-mood")?.value || 50),
+          avatar_url: currentAvatar,
+          export_date: new Date().toISOString()
+        };
+
+        // 2. Convert the object to a formatted string
+        const jsonString = JSON.stringify(botData, null, 4);
+
+        // 3. Create a "Blob" (the file data)
+        const blob = new Blob([jsonString], { type: "application/json" });
+
+        // 4. Create a hidden download link and click it
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement("a");
+        link.href = url;
+        link.download = `${botData.name.replace(/\s+/g, '-').toLowerCase()}-config.json`;
+
+        document.body.appendChild(link);
+        link.click();
+
+        // 5. Cleanup
+        document.body.removeChild(link);
+        URL.revokeObjectURL(url);
+      }
+
+      function clearChat() {
+        const flowContainer = document.getElementById("chat-flow");
+
+        // 1. Confirmation (Optional but recommended)
+        if (confirm("Are you sure you want to clear the conversation?")) {
+
+          // 2. Wipe the visual HTML
+          flowContainer.innerHTML = "";
+
+          // 3. Reset the AI Memory (Keep the system prompt so it remembers its name)
+          const systemPrompt = chatHistory[0];
+          chatHistory = [systemPrompt];
+
+          // 4. Add a "Clean Slate" notification
+          flowContainer.innerHTML = `<div class="system-notification">— Chat Cleared —</div>`;
+
+          // 5. Play a "whoosh" or "trash" sound (Optional)
+          // document.getElementById('snd-send').play();
+
+          scrollToBottom();
+        }
+      }
+
+      /* ============================================================
+         IV. DEPLOYMENT & CODE COPYING
+      ============================================================ 
+      */
+      function switchLang(lang, btn) {
+        document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+        document.querySelectorAll('.code-block').forEach(c => c.classList.remove('active'));
+        btn.classList.add('active');
+        document.getElementById('code-' + lang).classList.add('active');
+
+        const installCmd = document.querySelector('.terminal-mini code');
+        installCmd.innerText = (lang === 'py') ? 'pip install discord.py requests' : 'npm install discord.js axios';
+      }
+
+      function copyBotCode() {
+        // 1. Get the current settings from your state
+        const botName = currentBotName || "MyBot";
+        const botPersona = document.getElementById("bot-persona").value || "A helpful assistant.";
+
+        // 2. Identify which tab is active (Python or JS)
+        const isActivePy = document.getElementById('code-py').classList.contains('active');
+
+        // 3. The Templates
+        const pythonTemplate = `import discord
+from discord.ext import commands
+
+# Bot Configuration: ${botName}
+# Persona: ${botPersona}
+
+bot = commands.Bot(command_prefix="!", intents=discord.Intents.all())
+
+@bot.event
+async function on_ready():
+    print(f"{bot.user.name} is now online!")
+
+@bot.command()
+async def hello(ctx):
+    await ctx.send("Hello! I am ${botName}. ${botPersona}")
+
+bot.run("YOUR_TOKEN_HERE")`;
+
+        const jsTemplate = `const { Client, GatewayIntentBits } = require('discord.js');
+
+// Bot Configuration: ${botName}
+// Persona: ${botPersona}
+
+const client = new Client({ intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages] });
+
+client.once('ready', () => {
+    console.log('${botName} is online!');
+});
+
+client.on('messageCreate', message => {
+    if (message.content === '!hello') {
+        message.reply("Hello! I am ${botName}. ${botPersona}");
+    }
+});
+
+client.login('YOUR_TOKEN_HERE');`;
+
+        // 4. Choose the right one
+        const textToCopy = isActivePy ? pythonTemplate : jsTemplate;
+
+        // 5. Execute Copy
+        navigator.clipboard.writeText(textToCopy).then(() => {
+          const copyBtn = document.querySelector(".copy-btn");
+          const originalText = copyBtn.innerHTML;
+
+          copyBtn.innerHTML = '<i class="fa-solid fa-check"></i> Copied!';
+          copyBtn.style.background = "var(--accent-main)";
+          copyBtn.style.color = "#000";
+
+          setTimeout(() => {
+            copyBtn.innerHTML = originalText;
+            copyBtn.style.background = "transparent";
+            copyBtn.style.color = "var(--accent-main)";
+          }, 2000);
+        });
+      }
+
+      /* ============================================================
+         V. VISUAL EFFECTS (Mouse Glow & Animations)
+      ============================================================ 
+      */
+      function initVisuals() {
+        // Hero Text Animation
+        const heroTitle = document.querySelector(".hero-title");
+        const subtitle = document.querySelector(".hero-subtitle");
+        if (heroTitle) {
+          let delayCounter = 0;
+          const step = 0.05;
+          const processNode = (node) => {
+            if (node.nodeType === 3) {
+              const frag = document.createDocumentFragment();
+              [...node.textContent].forEach(char => {
+                if (char.trim() === "" && char !== " ") return;
+                const span = document.createElement("span");
+                span.textContent = char === " " ? "\u00A0" : char;
+                span.style.animationDelay = `${0.2 + delayCounter * step}s`;
+                if (char !== " ") delayCounter++;
+                frag.appendChild(span);
+              });
+              node.parentNode.replaceChild(frag, node);
+            } else node.childNodes.forEach(processNode);
+          };
+          processNode(heroTitle);
+          if (subtitle) {
+            // Give it a standard delay instead of a calculated one to prevent errors
+            subtitle.style.transitionDelay = "0.8s";
+
+            // Use a small timeout to ensure the browser registers the class addition
+            setTimeout(() => {
+              subtitle.classList.add("js-subtitle-animate");
+            }, 100);
+          }
+        }
+
+        // Performance-optimized Mouse Glow
+        const glowCards = document.querySelectorAll(".config-card, .chat-panel, .step-card, .glass-card, [data-refract]");
+        let ticking = false;
+
+        document.addEventListener("mousemove", (e) => {
+          if (!ticking) {
+            window.requestAnimationFrame(() => {
+              glowCards.forEach(card => {
+                const rect = card.getBoundingClientRect();
+                if (rect.top < window.innerHeight && rect.bottom > 0) {
+                  const x = e.clientX - rect.left;
+                  const y = e.clientY - rect.top;
+                  card.style.setProperty("--mouse-x", `${x}px`);
+                  card.style.setProperty("--mouse-y", `${y}px`);
+                  // Inline style fallback for radial glow
+                  card.style.background = `radial-gradient(800px circle at ${x}px ${y}px, rgba(255, 255, 255, 0.12), transparent 40%), rgba(255, 255, 255, 0.03)`;
+                }
+              });
+              ticking = false;
+            });
+            ticking = true;
+          }
+        });
+      }
+
+      /* ============================================================
+         VI. INITIALIZATION
+      ============================================================ 
+      */
+      document.addEventListener("DOMContentLoaded", () => {
+        initVisuals();
+
+        // Event Listeners
+        document.getElementById("user-input").addEventListener("keypress", (e) => {
+          if (e.key === "Enter") sendMessage();
+        });
+
+        document.getElementById("bot-name").addEventListener("input", updateRealTimePreview);
+        document.getElementById("bot-avatar").addEventListener("input", updateRealTimePreview);
+
+        // Active Section Observer
+        const navLinks = document.querySelectorAll("#sidemenu li a");
+        const sections = document.querySelectorAll("section[id]");
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              const id = entry.target.getAttribute('id');
+              navLinks.forEach(link => {
+                link.classList.toggle('active', link.getAttribute('href') === `#${id}`);
+              });
+            }
+          });
+        }, { rootMargin: '-45% 0px -45% 0px' });
+        sections.forEach(s => observer.observe(s));
+      });
+
+      function updateRealTimePreview() {
+        const name = document.getElementById("bot-name").value;
+        const avatar = document.getElementById("bot-avatar").value;
+        const mood = document.getElementById("bot-mood").value;
+        const botNameDisplay = document.querySelector(".bot-message-container .bubble");
+        const botAvatarDisplay = document.querySelector(".bot-message-container .avatar");
+
+        if (name) botNameDisplay.innerHTML = `Hi! I'm <b>${name}</b>. I'm feeling ${getMoodLabel(mood)} today.`;
+        botAvatarDisplay.src = avatar || `https://api.dicebear.com/7.x/bottts/svg?seed=${name || "default"}`;
+      }
+
+      document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+          e.preventDefault();
+          const href = this.getAttribute('href');
+
+          if (href === "#") {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+          } else {
+            const target = document.querySelector(href);
+            if (target) {
+              // Calculate position: target's top + current scroll - offset
+              const offset = 50; // The "padding" you want at the top
+              const elementPosition = target.getBoundingClientRect().top;
+              const offsetPosition = elementPosition + window.pageYOffset - offset;
+
+              window.scrollTo({
+                top: offsetPosition,
+                behavior: 'smooth'
+              });
+            }
+          }
+        });
+      });
+    </script>
+
+    <script>
+      var sidemenu = document.getElementById("sidemenu");
+
+      function toggleMenu() {
+        const menu = document.getElementById("sidemenu");
+        const icon = document.querySelector(".fa-bars");
+
+        menu.classList.toggle("active");
+        icon.classList.toggle("open"); // This class will trigger the icon change
+      }
+      terminalBody.addEventListener('click', () => {
+        terminalInput.focus();
+      });
+      terminalBody.addEventListener('click', () => {
+        terminalInput.focus();
+      });
+      const terminalInput = document.getElementById('terminalInput');
+      const terminalBody = document.querySelector('.terminal-body');
+
+      terminalInput.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter') {
+          const command = this.value.trim().toLowerCase();
+
+          // 1. Create the user's line (the prompt they just typed)
+          const userLine = document.createElement('div');
+          userLine.className = 'terminal-line';
+          userLine.innerHTML = `<span class="prompt">guest@flexibot:~$</span> <span class="output">${this.value}</span>`;
+          terminalBody.insertBefore(userLine, document.querySelector('.terminal-input-line'));
+
+          // 2. Process the command
+          processCommand(command);
+
+          // 3. Clear input and scroll to bottom
+          this.value = '';
+          terminalBody.scrollTop = terminalBody.scrollHeight;
+        }
+      });
+
+      function processCommand(cmd) {
+        const responseLine = document.createElement('div');
+        responseLine.className = 'terminal-line';
+        let responseText = "";
+
+        switch (cmd) {
+          case 'help':
+            responseText = "Available commands: [status] [deploy] [clear] [about]";
+            break;
+          case 'status':
+            responseText = "System: Online | Latency: 24ms | Engine: FlexiV1";
+            break;
+          case 'deploy':
+            responseText = "Redirecting to deployment portal... (Wait 2 seconds)";
+            setTimeout(() => { window.location.href = "#order"; }, 2000);
+            break;
+          case 'clear':
+            const lines = document.querySelectorAll('.terminal-line:not(.terminal-input-line)');
+            lines.forEach(line => line.remove());
+            return;
+          case '':
+            return;
+          default:
+            responseText = `Command not found: ${cmd}. Type 'help' for options.`;
+        }
+
+        responseLine.innerHTML = `<span class="output">${responseText}</span>`;
+        terminalBody.insertBefore(responseLine, document.querySelector('.terminal-input-line'));
+      }
+      document.querySelector('.terminal-shell').addEventListener('click', () => {
+        document.getElementById('terminalInput').focus({ preventScroll: true });
+      });
+    </script>
+
+    <a href="#header" id="backToTop" class="scroll-to-top">
+      <i class="fas fa-chevron-up"></i>
+    </a>
+  </body>
+
+  <audio id="snd-send" src="https://assets.mixkit.co/active_storage/sfx/2354/2354-preview.mp3" preload="auto"></audio>
+  <audio id="snd-receive" src="https://assets.mixkit.co/active_storage/sfx/2358/2358-preview.mp3"
+    preload="auto"></audio>
+
+</html>

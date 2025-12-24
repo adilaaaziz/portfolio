@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Niikai Portfolio</title>
+    <link rel="icon" type="image/x-icon" href="Images/favico.png" />
+    <link rel="stylesheet" href="style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Reenie+Beanie&display=swap"
+      rel="stylesheet"
+    />
+    <script
+      src="https://picflow.com/embed/main.js"
+      type="module"
+      defer
+    ></script>
+  </head>
+  <body>
+    <div class="navbar">
+      <div class="container">
+        <nav>
+          <a href="index.html"
+            ><img src="Images/logo.png" class="logo" alt="Logo"
+          /></a>
+          <ul id="sidemenu">
+            <li><a href="index.html#header">Home</a></li>
+            <li><a href="index.html#about">About</a></li>
+            <li><a href="index.html#services">Services</a></li>
+            <li><a href="index.html#portfolio">Portfolio</a></li>
+            <li><a href="index.html#contact">Contact</a></li>
+            <i class="fa-solid fa-xmark" onclick="closemenu()"></i>
+          </ul>
+          <i class="fa-solid fa-bars" onclick="openmenu()"></i>
+        </nav>
+      </div>
+    </div>
+
+    <div id="imagegallery">
+      <div class="container">
+        <h1 class="sub-title">Digital Art</h1>
+
+        <div class="tab-titles">
+          <p
+            class="tab-links active-link"
+            onclick="opentab('fullrenders', event)"
+          >
+            Full Renders
+          </p>
+          <p class="tab-links" onclick="opentab('sketches', event)">Sketches</p>
+          <p class="tab-links" onclick="opentab('wips', event)">
+            Work-In-Progresses
+          </p>
+        </div>
+
+        <div class="tab-contents active-tab" id="fullrenders">
+          <div class="photo-gallery">
+            <div class="gallery-loader">
+              <div class="shimmer-card"></div>
+              <div class="shimmer-card"></div>
+              <div class="shimmer-card"></div>
+              <div class="shimmer-card"></div>
+            </div>
+            <picflow-gallery
+              id="gal_haKZ5FiIF64g4c8Y"
+              tenant="tnt_Ol6XU3J4ge4FL10I"
+              lightbox="#000000E6"
+              no-padding="true"
+              no-background="true"
+              show-cover="true"
+            ></picflow-gallery>
+          </div>
+        </div>
+
+        <div class="tab-contents" id="sketches">
+          <div class="photo-gallery">
+            <div class="gallery-loader">
+              <div class="shimmer-card"></div>
+              <div class="shimmer-card"></div>
+              <div class="shimmer-card"></div>
+              <div class="shimmer-card"></div>
+            </div>
+            <picflow-gallery
+              id="gal_0icJbSutGDZ3UMXo"
+              tenant="tnt_Ol6XU3J4ge4FL10I"
+              lightbox="#000000E6"
+              no-padding="true"
+              no-background="true"
+              show-cover="true"
+            ></picflow-gallery>
+          </div>
+        </div>
+
+        <div class="tab-contents" id="wips">
+          <div class="photo-gallery">
+            <div class="gallery-loader">
+              <div class="shimmer-card"></div>
+              <div class="shimmer-card"></div>
+              <div class="shimmer-card"></div>
+              <div class="shimmer-card"></div>
+            </div>
+            <picflow-gallery
+              id="gal_N9Zcv0IkZt8xsP8U"
+              tenant="tnt_Ol6XU3J4ge4FL10I"
+              lightbox="#000000E6"
+              no-padding="true"
+              no-background="true"
+              show-cover="true"
+            ></picflow-gallery>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <footer class="footer">
+      <div class="container">
+        <div class="footer-row">
+          <div class="footer-col">
+            <img src="Images/logo.png" class="footer-logo" alt="Logo" />
+            <p>
+              Creating digital experiences with a focus on clean design and
+              user-centric solutions.
+            </p>
+          </div>
+
+          <div class="footer-col">
+            <h3>Explore</h3>
+            <ul>
+              <li><a href="#" class="scroll-to-top">Home</a></li>
+              <li><a href="index.html#about">About</a></li>
+              <li><a href="index.html#portfolio">Portfolio</a></li>
+              <li><a href="index.html#contact">Contact</a></li>
+            </ul>
+          </div>
+
+          <div class="footer-col">
+            <h3>Contact</h3>
+            <p>Email: adil@example.com</p>
+            <p>Location: City, Country</p>
+            <div class="footer-socials">
+              <a href="#"><i class="fa-brands fa-instagram"></i></a>
+              <a href="#"><i class="fa-brands fa-linkedin"></i></a>
+              <a href="#"><i class="fa-brands fa-twitter"></i></a>
+            </div>
+          </div>
+        </div>
+
+        <div class="footer-bottom">
+          <p>
+            &copy; 2024 Adil Aziz. Built with
+            <i class="fa-solid fa-heart"></i> and Coffee.
+          </p>
+        </div>
+      </div>
+    </footer>
+
+    <a href="#header" id="backToTop" class="back-to-top">
+      <i class="fas fa-arrow-up"></i>
+    </a>
+
+<script>
+  var sidemenu = document.getElementById("sidemenu");
+
+  // --- Tab Switch Logic ---
+  function opentab(tabname, event) {
+    // 1. Identify elements
+    const clickedElement = event ? event.currentTarget : document.querySelector(`.tab-links[onclick*="${tabname}"]`);
+    if (!clickedElement) return;
+
+    const parentContainer = clickedElement.closest('.container');
+    const localLinks = parentContainer.querySelectorAll(".tab-links");
+    const localContents = parentContainer.querySelectorAll(".tab-contents");
+    const targetTab = document.getElementById(tabname);
+
+    // 2. Reset Links
+    for (let tablink of localLinks) {
+      tablink.classList.remove("active-link");
+    }
+    clickedElement.classList.add("active-link");
+
+    // 3. Smooth Transition Logic
+    // First, fade out the current visible tab
+    for (let tabcontent of localContents) {
+      tabcontent.style.opacity = "0";
+      tabcontent.style.transition = "opacity 0.15s ease"; // Quick fade out
+    }
+
+    // Wait for fade out, then swap content
+    setTimeout(() => {
+      for (let tabcontent of localContents) {
+        tabcontent.classList.remove("active-tab", "show-content");
+        tabcontent.style.display = "none";
+      }
+
+      if (targetTab) {
+        targetTab.style.display = "block";
+        
+        // Force Reflow to ensure animation triggers
+        const targetGallery = targetTab.querySelector('picflow-gallery');
+        if (targetGallery) {
+          targetGallery.classList.remove("gallery-entrance");
+          void targetGallery.offsetWidth; // The "magic" line to restart CSS animations
+          targetGallery.classList.add("gallery-entrance");
+        }
+
+        // Final reveal
+        requestAnimationFrame(() => {
+          targetTab.classList.add("active-tab", "show-content");
+          targetTab.style.opacity = "1";
+        });
+      }
+    }, 150); 
+  }
+
+  // --- Sidebar Menu Logic ---
+  function openmenu() {
+    sidemenu.classList.add("menu-open");
+  }
+
+  function closemenu() {
+    sidemenu.classList.remove("menu-open");
+  }
+
+  // --- Close Menu on Outside Touch/Click ---
+  document.addEventListener("click", function (event) {
+    const isClickInsideMenu = sidemenu.contains(event.target);
+    const isClickOnOpenBtn = event.target.classList.contains("fa-bars");
+
+    if (!isClickInsideMenu && !isClickOnOpenBtn) {
+      closemenu();
+    }
+  });
+
+  // --- Initialization ---
+  document.addEventListener("DOMContentLoaded", () => {
+    // Open first tab without animation delay for initial load
+    opentab("fullrenders");
+
+    // Footer Scroll to Top
+    document.querySelectorAll(".scroll-to-top").forEach((link) => {
+      link.addEventListener("click", (e) => {
+        e.preventDefault();
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      });
+    });
+  });
+
+  // --- Loading Animation (Shimmer to Gallery) ---
+  window.addEventListener("load", function () {
+    setTimeout(() => {
+      
+      const galleries = document.querySelectorAll(".photo-gallery");
+      galleries.forEach((container) => {
+        const loader = container.querySelector(".gallery-loader");
+        container.classList.add("images-ready");
+
+        if (loader) {
+          loader.style.opacity = "0";
+          loader.style.pointerEvents = "none";
+          setTimeout(() => {
+            loader.style.display = "none";
+          }, 800);
+        }
+      });
+    }, 1000);
+  });
+  setTimeout(() => {
+    container.classList.add("images-ready"); // This will now also reveal the badge smoothly
+}, 1200);
+
+// Get the button
+const backToTop = document.getElementById("backToTop");
+
+// Check if it exists to avoid errors
+if (backToTop) {
+    window.addEventListener("scroll", () => {
+        // If scrolled more than 400px, add the 'show' class
+        if (window.pageYOffset > 400) {
+            backToTop.classList.add("show");
+        } else {
+            backToTop.classList.remove("show");
+        }
+    });
+
+    backToTop.addEventListener("click", (e) => {
+        e.preventDefault();
+        window.scrollTo({ top: 0, behavior: "smooth" });
+    });
+}
+</script>
+
+    <script
+      src="https://kit.fontawesome.com/95c0363b05.js"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>
