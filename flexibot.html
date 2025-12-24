@@ -452,7 +452,7 @@ client.<span class="token-func">run</span>(<span class="token-str">'<span class=
    I. CONFIGURATION & STATE
 ============================================================ 
 */
-      const DEEPSEEK_API_KEY = "DEEPSEEK_API_KEY_HERE"; // Replace with your actual DeepSeek API key
+      const DEEPSEEK_API_KEY = "DEEPSEEK_API_KEY"; // Replace with your actual DeepSeek API key
       let currentBotName = "Bot";
       let currentAvatar = "https://api.dicebear.com/7.x/bottts/svg?seed=default";
       let chatHistory = [];
@@ -635,34 +635,51 @@ client.<span class="token-func">run</span>(<span class="token-str">'<span class=
         // const response = await fetch("https://corsproxy.io/?url=https://api.deepseek.com/chat/completions"
 
         try {
-          const response = await fetch("https://api.deepseek.com/chat/completions", {
+          // 1. Point to your NEW local Vercel API instead of direct DeepSeek URL
+          const response = await fetch("/api/chat", {
             method: "POST",
-            headers: { "Content-Type": "application/json", Authorization: `Bearer ${DEEPSEEK_API_KEY}` },
-            body: JSON.stringify({ model: "deepseek-chat", messages: chatHistory })
+            headers: { "Content-Type": "application/json" },
+            // We send the history to our backend; the backend adds the API key
+            body: JSON.stringify({
+              model: "deepseek-chat",
+              messages: chatHistory
+            })
           });
+
           const data = await response.json();
+
+          // Handle potential errors from your backend
+          if (data.error) {
+            throw new Error(data.error);
+          }
+
           const botMessage = data.choices[0].message.content;
 
-          // 3. The Swap (Wait, find, then replace)
+          // 2. The Swap (Wait, find, then replace)
           const indicator = document.getElementById(typingId);
           if (indicator) {
-            indicator.remove(); // This clears the dots
+            indicator.remove();
           }
 
           document.getElementById('snd-receive').play();
 
           flowContainer.innerHTML += `
-            <div class="bot-message-container">
-                <img src="${currentAvatar}" class="avatar">
-                <div class="bubble bot-bubble">${botMessage}</div>
-            </div>`;
+    <div class="bot-message-container">
+        <img src="${currentAvatar}" class="avatar">
+        <div class="bubble bot-bubble">${botMessage}</div>
+    </div>`;
 
           chatHistory.push({ role: "assistant", content: botMessage });
+
         } catch (e) {
-          // If it fails, at least show an error
+          console.error("Chat Error:", e);
           const indicator = document.getElementById(typingId);
           if (indicator) {
-            indicator.innerHTML = `<img src="${currentAvatar}" class="avatar"><div class="bubble bot-bubble" style="color:#ff4d4d">Error: Connection lost.</div>`;
+            indicator.innerHTML = `
+      <img src="${currentAvatar}" class="avatar">
+      <div class="bubble bot-bubble" style="color:#ff4d4d">
+        Error: ${e.message || "Connection lost."}
+      </div>`;
           }
         }
         scrollToBottom();
