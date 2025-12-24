@@ -452,7 +452,7 @@ client.<span class="token-func">run</span>(<span class="token-str">'<span class=
    I. CONFIGURATION & STATE
 ============================================================ 
 */
-      const DEEPSEEK_API_KEY = "DEEPSEEK_API_KEY";
+      const DEEPSEEK_API_KEY = "DEEPSEEK_API_KEY_HERE"; // Replace with your actual DeepSeek API key
       let currentBotName = "Bot";
       let currentAvatar = "https://api.dicebear.com/7.x/bottts/svg?seed=default";
       let chatHistory = [];
@@ -632,8 +632,10 @@ client.<span class="token-func">run</span>(<span class="token-str">'<span class=
         </div>`;
         scrollToBottom();
 
+        // const response = await fetch("https://corsproxy.io/?url=https://api.deepseek.com/chat/completions"
+
         try {
-          const response = await fetch("https://corsproxy.io/?url=https://api.deepseek.com/chat/completions", {
+          const response = await fetch("https://api.deepseek.com/chat/completions", {
             method: "POST",
             headers: { "Content-Type": "application/json", Authorization: `Bearer ${DEEPSEEK_API_KEY}` },
             body: JSON.stringify({ model: "deepseek-chat", messages: chatHistory })

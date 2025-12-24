@@ -1269,6 +1269,7 @@ textarea:focus {
   padding: 20px 20px;
   border-radius: 40px;
   text-decoration: none;
+  font-size: 16px;
   font-weight: 600;
   transition: 0.5s ease;
 }
