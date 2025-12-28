@@ -28,6 +28,10 @@
   font-family: "Plus Jakarta Sans", sans-serif;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 /* Disable heavy effects for older hardware or low-power modes */
 @media (prefers-reduced-motion: reduce) {
   * {
@@ -1248,6 +1252,87 @@ textarea:focus {
   opacity: 0.8;
 }
 
+/* --- COMPARSION SECTIONS --- */
+
+/* Comparison Section Styles */
+.comparison-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 30px;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.comparison-card {
+  display: flex;
+  flex-direction: column;
+  padding: 40px;
+  position: relative;
+  transition: transform 0.3s ease;
+}
+
+.comparison-card:hover {
+  transform: translateY(-10px);
+}
+
+.pro-tier {
+  border: 1px solid var(--accent-pink) !important;
+  box-shadow: 0 0 30px rgba(206, 35, 128, 0.2);
+}
+
+.card-tier {
+  text-transform: uppercase;
+  font-size: 0.8rem;
+  font-weight: 800;
+  letter-spacing: 2px;
+  margin-bottom: 10px;
+  color: var(--accent-main);
+}
+
+.accent-gradient {
+  background: linear-gradient(90deg, var(--accent-main), var(--accent-pink));
+  
+  /* 1. Correct Webkit properties for gradient text */
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  
+  /* 2. Standard property for future-proofing */
+  background-clip: text;
+  
+  /* 3. Safety fallback: if gradient fails, use the main accent color */
+  color: var(--accent-main); 
+}
+
+.card-price {
+  font-size: 2rem;
+  margin-bottom: 15px;
+}
+
+.feature-checklist {
+  list-style: none;
+  padding: 0;
+  margin: 30px 0;
+  flex-grow: 1;
+}
+
+.feature-checklist li {
+  margin-bottom: 15px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 0.95rem;
+}
+
+.feature-checklist i {
+  color: var(--accent-main);
+  width: 20px;
+}
+
+.pro-tier .feature-checklist i {
+  color: var(--accent-pink);
+}
+
+
 /* --- TERMINAL & BUTTONS --- */
 
 .terminal-mini {
@@ -2057,31 +2142,118 @@ nav .fa-bars.open::before {
     font-size: 1.8rem;
   }
 
-  /* 3. Studio/Demo Section */
+  /* 1. Full-bleed background for the swipe section */
+  .studio-section .container {
+    padding: 0 !important;
+    max-width: 100% !important;
+  }
+
+  /* 2. The Horizontal Scroller */
   .studio-wrapper {
+    display: flex !important;
+    flex-direction: row !important;
+    overflow-x: auto !important;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+    
+    /* Perfect Guttering */
+    padding: 0 20px 40px 20px !important; 
+    gap: 20px !important; 
+    box-sizing: border-box;
+    justify-content: flex-start !important;
+  }
+
+  /* Hide scrollbar */
+  .studio-wrapper::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* 3. The Cards: Glassmorphism & Logic */
+  .config-card, .chat-panel {
+    display: flex !important;
+    flex-direction: column !important;
+    
+    /* Height logic: 70% of the screen but at least 600px */
+    flex: 0 0 calc(100vw - 40px) !important;
+    width: calc(100vw - 40px) !important;
+    min-width: calc(100vw - 40px) !important;
+    height: 650px !important; 
+    
+    /* Aesthetics */
+    padding: 25px !important;
+    background: rgba(255, 255, 255, 0.05) !important;
+    backdrop-filter: blur(15px);
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    border-radius: 32px !important;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+    
+    scroll-snap-align: start;
+    box-sizing: border-box;
+    position: relative;
+  }
+
+  /* 4. Scrollable inner content (Fixes "Buttons outside the card") */
+  .config-card form {
+    display: flex;
     flex-direction: column;
-    align-items: center;
+    height: 100%; /* Take up the full 650px */
+    overflow: hidden; /* Prevent the card itself from growing */
   }
 
-  .config-card, .step-card {
-    min-width: 100% !important; 
-    padding: 20px;
+  /* Wrap your inputs in a div with this class to allow internal scrolling if text is long */
+  .form-scroll-area {
+    flex: 1; /* Grows to fill space between title and buttons */
+    overflow-y: auto;
+    padding-right: 5px;
+    margin-bottom: 15px;
+  }
+  
+  /* Style scrollbar for internal area */
+  .form-scroll-area::-webkit-scrollbar {
+    width: 4px;
+  }
+  .form-scroll-area::-webkit-scrollbar-thumb {
+    background: rgba(255,255,255,0.2);
+    border-radius: 10px;
   }
 
-  .has-active-chat .chat-panel {
-    min-height: 500px; /* Give it a fixed height on mobile */
+  /* 5. The Footer: Docked Buttons */
+  .form-actions {
+    margin-top: auto; 
+    padding-top: 15px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
     width: 100%;
   }
 
-  .form-actions {
-    flex-direction: column; /* Stack buttons vertically */
-    gap: 10px;
-  }
-
   .btn-playful, .btn-outline {
-    width: 100%; /* Full width buttons for easier tapping */
+    width: 100% !important;
+    padding: 16px !important;
+    font-size: 0.95rem !important;
+    font-weight: 600;
+    border-radius: 14px !important;
+    transition: transform 0.2s ease;
   }
 
+  .btn-playful:active {
+    transform: scale(0.98);
+  }
+
+  /* 6. State Logic */
+  .chat-panel:not(.active-step) {
+    opacity: 0.4;
+    pointer-events: none;
+    filter: grayscale(1) blur(2px);
+    transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+.chat-panel.active-step {
+    opacity: 1;
+    pointer-events: all;
+    filter: grayscale(0) blur(0);
+}
   /* 4. Deploy & Grid Sections */
   .deploy-grid, .steps-grid {
     grid-template-columns: 1fr; /* Force single column */
