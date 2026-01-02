@@ -903,8 +903,13 @@ textarea,
   font-size: 15px;
   line-height: 1.4;
   max-width: 85%;
-  animation: messageFadeIn 0.3s ease-out forwards;
   transform-origin: bottom;
+  animation: messagePop 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+    transform-origin: left bottom; /* Makes it feel like it's growing from the corner */
+}
+@keyframes messagePop {
+    0% { transform: scale(0.5); opacity: 0; }
+    100% { transform: scale(1); opacity: 1; }
 }
 @keyframes messageFadeIn {
   from {
@@ -2029,6 +2034,8 @@ nav .fa-bars.open::before {
   opacity: 0;
   pointer-events: none;
   transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+
+  will-change: transform, opacity;
 }
 
 #sidemenu li:last-child a {
@@ -2076,9 +2083,10 @@ nav .fa-bars.open::before {
 }
 
 #sidemenu.active li:nth-child(1) { transition-delay: 0.1s; }
-#sidemenu.active li:nth-child(2) { transition-delay: 0.2s; }
-#sidemenu.active li:nth-child(3) { transition-delay: 0.3s; }
-#sidemenu.active li:nth-child(4) { transition-delay: 0.4s; }
+#sidemenu.active li:nth-child(2) { transition-delay: 0.15s; }
+#sidemenu.active li:nth-child(3) { transition-delay: 0.2s; }
+#sidemenu.active li:nth-child(4) { transition-delay: 0.25s; }
+#sidemenu.active li:nth-child(5) { transition-delay: 0.3s; }
 
 #sidemenu li a {
   position: relative;
@@ -2111,19 +2119,25 @@ nav .fa-bars.open::before {
     top: 25px;
     left: 25px;
   }
-
-#sidemenu .fa-xmark {
-  position: absolute;
-  top: 30px;
-  left: 30px;
-  font-size: 22px;
-  color: var(--accent-main);
-  cursor: pointer;
-  transition: transform 0.3s ease;
+  /* Create a dimming effect behind the floating card */
+.menu-backdrop {
+    position: fixed;
+    inset: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.6); /* Dark dimming */
+    backdrop-filter: blur(4px);    /* Slight blur of the content behind */
+    z-index: 999;                 /* Below menu, above everything else */
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: all 0.4s ease;
 }
 
-#sidemenu .fa-xmark:hover {
-  transform: rotate(90deg) scale(1.2);
+.menu-backdrop.active {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
 }
 
   .code-block {
@@ -2225,6 +2239,7 @@ nav .fa-bars.open::before {
     background: white;
     color: #6a11cb;
   }
+  
 
   /* 4. Button Grid Fix for Mobile */
   .form-actions {

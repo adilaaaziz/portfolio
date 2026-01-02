@@ -17,12 +17,16 @@
   </head>
 
   <body>
+
+    <div class="menu-backdrop" onclick="toggleMenu()"></div>
+
     <div class="navbar" id="header">
       <div class="container">
         <nav>
           <a href="index.html">
             <img src="Images/logo.png" class="logo" alt="Adil Aziz Logo" />
           </a>
+
 
           <ul id="sidemenu">
             <li><a href="#about-section" onclick="toggleMenu()">About</a></li>
@@ -806,8 +810,20 @@ client.<span class="token-func">run</span>(<span class="token-str">'<span class=
 
       // Sidebar Toggle
       function toggleMenu() {
-        document.getElementById("sidemenu").classList.toggle("active");
-        document.querySelector(".fa-bars")?.classList.toggle("open");
+        const sidemenu = document.getElementById("sidemenu");
+        const backdrop = document.querySelector(".menu-backdrop");
+        const menuIcon = document.querySelector(".fa-bars");
+
+        sidemenu.classList.toggle("active");
+        backdrop.classList.toggle("active");
+        if (menuIcon) menuIcon.classList.toggle("open");
+
+        // Prevent body scroll
+        if (sidemenu.classList.contains("active")) {
+          document.body.style.overflow = "hidden";
+        } else {
+          document.body.style.overflow = "auto";
+        }
       }
 
       const backToTop = document.getElementById("backToTop");
