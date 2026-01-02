@@ -107,57 +107,46 @@
       </section>
 
       <section id="demo-section">
-
         <h2 class="main-title" style="text-align: center; margin-bottom: 40px">
           Try it out!
         </h2>
 
         <div class="step-indicator-container">
-          <div id="step1" class="step-dot active">Step 1: Identity</div>
-          <div id="step2" class="step-dot">Step 2: Chat</div>
+          <div id="step1" class="step-dot active" onclick="showStep(1)">Step 1: Identity</div>
+          <div id="step2" class="step-dot" onclick="showStep(2)">Step 2: Chat</div>
         </div>
 
         <div class="studio-wrapper" id="studioFrame">
           <div class="config-card" data-refract>
             <div class="form-container">
-
               <p>Define the bot's soul and let it speak!</p>
 
               <form id="bot-config">
-                <label class="input-label">Quick Presets</label>
-                <div class="preset-buttons">
-                  <button type="button" class="btn-preset" onclick="loadPreset('NeonGhost')">
-                    Neon Ghost
-                  </button>
-                  <button type="button" class="btn-preset" onclick="loadPreset('Oracle')">
-                    Oracle-v9
-                  </button>
-                  <button type="button" class="btn-preset" onclick="loadPreset('Cosmos')">
-                    Stardust
-                  </button>
+                <div class="form-scroll-area">
+                  <label class="input-label">Quick Presets</label>
+                  <div class="preset-buttons">
+                    <button type="button" class="btn-preset" onclick="loadPreset('NeonGhost')">Neon Ghost</button>
+                    <button type="button" class="btn-preset" onclick="loadPreset('Oracle')">Oracle-v9</button>
+                    <button type="button" class="btn-preset" onclick="loadPreset('Cosmos')">Stardust</button>
+                  </div>
+
+                  <label class="input-label">Bot Name</label>
+                  <input type="text" id="bot-name" placeholder="Name (e.g. Sunny)" />
+
+                  <label class="input-label">Personality</label>
+                  <textarea id="bot-persona" rows="4" placeholder="Personality Traits..."></textarea>
+
+                  <label class="input-label">Mood & Emotion</label>
+                  <div class="mood-container">
+                    <span class="mood-emoji">😠</span>
+                    <input type="range" id="bot-mood" min="1" max="100" value="50" class="mood-slider"
+                      oninput="updateRealTimePreview()" />
+                    <span class="mood-emoji">😊</span>
+                  </div>
+
+                  <label class="input-label">Avatar URL</label>
+                  <input type="text" id="bot-avatar" placeholder="Paste image link here" />
                 </div>
-
-                <label class="input-label">Bot Name</label>
-                <input type="text" id="bot-name" placeholder="Name (e.g. Sunny)" />
-
-                <label class="input-label">Personality</label>
-                <textarea id="bot-persona" rows="4" placeholder="Personality Traits..."></textarea>
-
-                <label class="input-label">Mood & Emotion</label>
-                <div class="mood-container" style="
-                  display: flex;
-                  align-items: center;
-                  gap: 15px;
-                  margin-bottom: 20px;
-                ">
-                  <span style="font-size: 20px">😠</span>
-                  <input type="range" id="bot-mood" min="1" max="100" value="50" class="mood-slider"
-                    oninput="updateRealTimePreview()" />
-                  <span style="font-size: 20px">😊</span>
-                </div>
-
-                <label class="input-label">Avatar URL</label>
-                <input type="text" id="bot-avatar" placeholder="Paste image link here" />
 
                 <div class="form-actions">
                   <button type="button" class="btn-playful" onclick="updateBot()">
@@ -307,42 +296,42 @@ client.<span class="token-func">run</span>(<span class="token-str">'<span class=
       </section>
 
       <section id="comparison-section" class="container">
-  <h2 class="section-title" style="text-align: center; margin-bottom: 50px;">Choose Your Power Level</h2>
-  
-  <div class="comparison-grid">
-    <div class="comparison-card glass-card" data-refract>
-      <div class="card-tier">Starter</div>
-      <h3 class="card-price">Free / DIY</h3>
-      <p class="card-desc">Perfect for hobbyists who want a basic presence on their own server.</p>
-      
-      <ul class="feature-checklist">
-        <li><i class="fa-solid fa-check"></i> Single Personality Profile</li>
-        <li><i class="fa-solid fa-check"></i> Local Deployment (DIY)</li>
-        <li><i class="fa-solid fa-check"></i> Standard "Static" Memory</li>
-        <li><i class="fa-solid fa-xmark" style="color: var(--text-secondary);"></i> No Cloud Hosting</li>
-        <li><i class="fa-solid fa-xmark" style="color: var(--text-secondary);"></i> No API Integrations</li>
-      </ul>
-      
-      <a href="#deploy-section" class="btn-outline" style="width: 100%; text-align: center;">Get Starter Kit</a>
-    </div>
+        <h2 class="section-title" style="text-align: center; margin-bottom: 50px;">Choose Your Power Level</h2>
 
-    <div class="comparison-card glass-card pro-tier" data-refract>
-      <div class="card-tier accent-gradient">Sophisticated</div>
-      <h3 class="card-price">Bespoke Build</h3>
-      <p class="card-desc">A fully managed, intelligent entity designed for high-end communities.</p>
-      
-      <ul class="feature-checklist">
-        <li><i class="fa-solid fa-bolt"></i> <strong>Long-Term Context Memory</strong></li>
-        <li><i class="fa-solid fa-bolt"></i> 24/7 Cloud Hosting Included</li>
-        <li><i class="fa-solid fa-bolt"></i> Custom API (Spotify, Games, CRM)</li>
-        <li><i class="fa-solid fa-bolt"></i> Unique Character Art & Voice</li>
-        <li><i class="fa-solid fa-bolt"></i> Priority Developer Support</li>
-      </ul>
-      
-      <a href="#order-section" class="btn-playful" style="width: 100%; text-align: center;">Order Custom Bot</a>
-    </div>
-  </div>
-</section>
+        <div class="comparison-grid">
+          <div class="comparison-card glass-card" data-refract>
+            <div class="card-tier">Starter</div>
+            <h3 class="card-price">Free / DIY</h3>
+            <p class="card-desc">Perfect for hobbyists who want a basic presence on their own server.</p>
+
+            <ul class="feature-checklist">
+              <li><i class="fa-solid fa-check"></i> Single Personality Profile</li>
+              <li><i class="fa-solid fa-check"></i> Local Deployment (DIY)</li>
+              <li><i class="fa-solid fa-check"></i> Standard "Static" Memory</li>
+              <li><i class="fa-solid fa-xmark" style="color: var(--text-secondary);"></i> No Cloud Hosting</li>
+              <li><i class="fa-solid fa-xmark" style="color: var(--text-secondary);"></i> No API Integrations</li>
+            </ul>
+
+            <a href="#deploy-section" class="btn-outline" style="width: 100%; text-align: center;">Get Starter Kit</a>
+          </div>
+
+          <div class="comparison-card glass-card pro-tier" data-refract>
+            <div class="card-tier accent-gradient">Sophisticated</div>
+            <h3 class="card-price">Bespoke Build</h3>
+            <p class="card-desc">A fully managed, intelligent entity designed for high-end communities.</p>
+
+            <ul class="feature-checklist">
+              <li><i class="fa-solid fa-bolt"></i> <strong>Long-Term Context Memory</strong></li>
+              <li><i class="fa-solid fa-bolt"></i> 24/7 Cloud Hosting Included</li>
+              <li><i class="fa-solid fa-bolt"></i> Custom API (Spotify, Games, CRM)</li>
+              <li><i class="fa-solid fa-bolt"></i> Unique Character Art & Voice</li>
+              <li><i class="fa-solid fa-bolt"></i> Priority Developer Support</li>
+            </ul>
+
+            <a href="#order-section" class="btn-playful" style="width: 100%; text-align: center;">Order Custom Bot</a>
+          </div>
+        </div>
+      </section>
 
       <section id="order-section">
         <h2 class="main-title" style="text-align: center; margin-bottom: 40px">Order a Custom Bot</h2>
@@ -486,348 +475,378 @@ client.<span class="token-func">run</span>(<span class="token-str">'<span class=
     </div>
 
     <script>
-/* ============================================================
-   I. CONFIGURATION & STATE
-============================================================ */
-const DEEPSEEK_API_KEY = "DEEPSEEK_API_KEY"; 
-let currentBotName = "Bot";
-let currentAvatar = "https://api.dicebear.com/7.x/bottts/svg?seed=default";
-let chatHistory = [];
+      /* ============================================================
+         I. CONFIGURATION & STATE
+      ============================================================ */
+      const DEEPSEEK_API_KEY = "DEEPSEEK_API_KEY";
+      let currentBotName = "Bot";
+      let currentAvatar = "https://api.dicebear.com/7.x/bottts/svg?seed=default";
+      let chatHistory = [];
 
-/* ============================================================
-   II. UI & NAVIGATION UTILITIES
-============================================================ */
-function scrollToBottom() {
-    const flow = document.getElementById("chat-flow");
-    if (!flow) return;
-    requestAnimationFrame(() => {
-        flow.scrollTo({ top: flow.scrollHeight, behavior: "smooth" });
-    });
-}
+      /* ============================================================
+         II. UI & NAVIGATION UTILITIES
+      ============================================================ */
+      function scrollToBottom() {
+        const flow = document.getElementById("chat-flow");
+        if (!flow) return;
+        requestAnimationFrame(() => {
+          flow.scrollTo({ top: flow.scrollHeight, behavior: "smooth" });
+        });
+      }
 
-// Back to Top Button Logic
-window.addEventListener('scroll', () => {
-    const scrollBtn = document.getElementById('backToTop');
-    if (scrollBtn) {
-        if (window.pageYOffset > 300) scrollBtn.classList.add('show');
-        else scrollBtn.classList.remove('show');
-    }
-});
+      // Back to Top Button Logic
+      window.addEventListener('scroll', () => {
+        const scrollBtn = document.getElementById('backToTop');
+        if (scrollBtn) {
+          if (window.pageYOffset > 300) scrollBtn.classList.add('show');
+          else scrollBtn.classList.remove('show');
+        }
+      });
 
-function getMoodLabel(value) {
-    if (value < 30) return "a bit grumpy";
-    if (value > 70) return "super excited";
-    return "quite balanced";
-}
+      function getMoodLabel(value) {
+        if (value < 30) return "a bit grumpy";
+        if (value > 70) return "super excited";
+        return "quite balanced";
+      }
 
-/* ============================================================
-   III. THE MASTER BOT LOGIC (Merged)
-============================================================ */
-function updateBot() {
-    // 1. Capture Form Data (Supports both naming conventions found in your scripts)
-    const nameInput = document.getElementById("bot-name")?.value || document.getElementById("botName")?.value || "";
-    const personaInput = document.getElementById("bot-persona")?.value || document.getElementById("botPersona")?.value || "";
-    const avatarInput = document.getElementById("bot-avatar")?.value || document.getElementById("botAvatar")?.value || "";
-    const moodValue = document.getElementById("bot-mood")?.value || document.getElementById("botMood")?.value || 50;
-    const moodLabel = getMoodLabel(moodValue);
+      /* ============================================================
+         III. THE MASTER BOT LOGIC (Merged)
+      ============================================================ */
+      function updateBot() {
+        // 1. Capture Form Data (Supports both naming conventions found in your scripts)
+        const nameInput = document.getElementById("bot-name")?.value || document.getElementById("botName")?.value || "";
+        const personaInput = document.getElementById("bot-persona")?.value || document.getElementById("botPersona")?.value || "";
+        const avatarInput = document.getElementById("bot-avatar")?.value || document.getElementById("botAvatar")?.value || "";
+        const moodValue = document.getElementById("bot-mood")?.value || document.getElementById("botMood")?.value || 50;
+        const moodLabel = getMoodLabel(moodValue);
 
-    // 2. Validation
-    if (nameInput.trim() === "") {
-        alert("Please give your bot a name first!");
-        return;
-    }
+        // 2. Validation
+        if (nameInput.trim() === "") {
+          alert("Please give your bot a name first!");
+          return;
+        }
 
-    // 3. Update Global State
-    currentBotName = nameInput;
-    currentAvatar = avatarInput.trim() || `https://api.dicebear.com/7.x/bottts/svg?seed=${nameInput}`;
-    
-    chatHistory = [{
-        role: "system",
-        content: `Your name is ${currentBotName}. Current mood: ${moodLabel}. Persona: ${personaInput}`
-    }];
+        // 3. Update Global State
+        currentBotName = nameInput;
+        currentAvatar = avatarInput.trim() || `https://api.dicebear.com/7.x/bottts/svg?seed=${nameInput}`;
 
-    // 4. UI Transitions & Indicators
-    const chatPanel = document.querySelector(".chat-panel");
-    const studioWrapper = document.querySelector(".studio-wrapper");
-    const step1 = document.getElementById("step1");
-    const step2 = document.getElementById("step2");
+        chatHistory = [{
+          role: "system",
+          content: `Your name is ${currentBotName}. Current mood: ${moodLabel}. Persona: ${personaInput}`
+        }];
 
-    if (studioWrapper) studioWrapper.classList.add("has-active-chat");
-    if (chatPanel) {
-        chatPanel.classList.add("active-step");
-        chatPanel.classList.add("active"); // Support for both CSS classes
-    }
-    document.body.classList.add("has-active-chat");
+        // 4. UI Transitions & Indicators
+        const chatPanel = document.querySelector(".chat-panel");
+        const studioWrapper = document.querySelector(".studio-wrapper");
+        const step1 = document.getElementById("step1");
+        const step2 = document.getElementById("step2");
 
-    if (step1 && step2) {
-        step1.classList.remove("active");
-        step2.classList.add("active");
-    }
+        if (studioWrapper) studioWrapper.classList.add("has-active-chat");
+        if (chatPanel) {
+          chatPanel.classList.add("active-step");
+          chatPanel.classList.add("active"); // Support for both CSS classes
+        }
+        document.body.classList.add("has-active-chat");
 
-    // 5. Update Live Preview elements if they exist
-    if (document.getElementById('displayBotName')) document.getElementById('displayBotName').innerText = currentBotName;
-    if (document.getElementById('displayBotPersona')) document.getElementById('displayBotPersona').innerText = personaInput;
-    if (document.getElementById('displayBotAvatar')) document.getElementById('displayBotAvatar').src = currentAvatar;
+        if (step1 && step2) {
+          step1.classList.remove("active");
+          step2.classList.add("active");
+        }
 
-    // 6. Add notification to chat flow
-    const flow = document.getElementById("chat-flow");
-    if (flow) {
-        flow.innerHTML += `<div class="system-notification" style="text-align:center; font-size:12px; color:rgba(255,255,255,0.5); margin:20px 0;">— Identity updated to ${currentBotName} —</div>`;
-    }
+        // 5. Update Live Preview elements if they exist
+        if (document.getElementById('displayBotName')) document.getElementById('displayBotName').innerText = currentBotName;
+        if (document.getElementById('displayBotPersona')) document.getElementById('displayBotPersona').innerText = personaInput;
+        if (document.getElementById('displayBotAvatar')) document.getElementById('displayBotAvatar').src = currentAvatar;
 
-    // 7. Mobile Swipe Logic
-    if (window.innerWidth <= 768 && studioWrapper && chatPanel) {
-        setTimeout(() => {
+        // 6. Add notification to chat flow
+        const flow = document.getElementById("chat-flow");
+        if (flow) {
+          flow.innerHTML += `<div class="system-notification" style="text-align:center; font-size:12px; color:rgba(255,255,255,0.5); margin:20px 0;">— Identity updated to ${currentBotName} —</div>`;
+        }
+
+        // 7. Mobile Swipe Logic
+        if (window.innerWidth <= 768 && studioWrapper && chatPanel) {
+          setTimeout(() => {
             studioWrapper.scrollTo({ left: chatPanel.offsetLeft, behavior: "smooth" });
-        }, 100);
-    }
-    
-    scrollToBottom();
-}
+          }, 100);
+        }
 
-function loadPreset(type) {
-    const presets = {
-        'NeonGhost': {
+        if (window.innerWidth <= 600) {
+          showStep(2);
+        }
+
+        scrollToBottom();
+      }
+
+      function loadPreset(type) {
+        const presets = {
+          'NeonGhost': {
             name: 'Neon Ghost',
             p: 'You are a high-energy, sarcastic cyberpunk netrunner. Use tech slang like "delta," "choom," and "flatlined."',
             img: 'https://api.dicebear.com/7.x/bottts-neutral/svg?seed=Ghost&backgroundColor=b6e3f4'
-        },
-        'Oracle': {
+          },
+          'Oracle': {
             name: 'Oracle-v9',
             p: 'You are a cold, logical, and highly advanced Super-AI. Your tone is formal and precise.',
             img: 'https://api.dicebear.com/7.x/bottts-neutral/svg?seed=Oracle&backgroundColor=c0aede'
-        },
-        'Cosmos': {
+          },
+          'Cosmos': {
             name: 'Stardust',
             p: 'You are a calm, philosophical space explorer. You speak in metaphors about the stars.',
             img: 'https://api.dicebear.com/7.x/bottts-neutral/svg?seed=Space&backgroundColor=ffd5dc'
+          }
+        };
+
+        const selected = presets[type];
+        const nameField = document.getElementById("bot-name") || document.getElementById("botName");
+        const personaField = document.getElementById("bot-persona") || document.getElementById("botPersona");
+        const avatarField = document.getElementById("bot-avatar") || document.getElementById("botAvatar");
+        const avatarDisplay = document.getElementById("bot-avatar-display");
+
+        if (nameField) nameField.value = selected.name;
+        if (personaField) personaField.value = selected.p;
+        if (avatarField) avatarField.value = selected.img;
+        if (avatarDisplay) avatarDisplay.src = selected.img;
+
+        currentAvatar = selected.img;
+
+        // Theme Shift
+        const colors = { 'NeonGhost': '#00f2ff', 'Oracle': '#ffffff', 'Cosmos': '#ffcc00' };
+        document.documentElement.style.setProperty('--accent-main', colors[type]);
+
+        updateBot();
+      }
+
+      async function sendMessage() {
+        const input = document.getElementById("user-input");
+        const flowContainer = document.getElementById("chat-flow");
+        if (!input || !flowContainer) return;
+
+        const userText = input.value.trim();
+        if (!userText) return;
+
+        if (!currentBotName || currentBotName === "Bot") {
+          alert("Please set a bot name in the first panel before chatting!");
+          return;
         }
-    };
-    
-    const selected = presets[type];
-    const nameField = document.getElementById("bot-name") || document.getElementById("botName");
-    const personaField = document.getElementById("bot-persona") || document.getElementById("botPersona");
-    const avatarField = document.getElementById("bot-avatar") || document.getElementById("botAvatar");
-    const avatarDisplay = document.getElementById("bot-avatar-display");
 
-    if (nameField) nameField.value = selected.name;
-    if (personaField) personaField.value = selected.p;
-    if (avatarField) avatarField.value = selected.img;
-    if (avatarDisplay) avatarDisplay.src = selected.img;
+        // Add User Message
+        flowContainer.innerHTML += `<div class="user-message-container"><div class="bubble user-bubble">${userText}</div></div>`;
+        try { document.getElementById('snd-send')?.play(); } catch (e) { }
 
-    currentAvatar = selected.img;
+        input.value = "";
+        chatHistory.push({ role: "user", content: userText });
+        scrollToBottom();
 
-    // Theme Shift
-    const colors = {'NeonGhost': '#00f2ff', 'Oracle': '#ffffff', 'Cosmos': '#ffcc00'};
-    document.documentElement.style.setProperty('--accent-main', colors[type]);
-
-    updateBot();
-}
-
-async function sendMessage() {
-    const input = document.getElementById("user-input");
-    const flowContainer = document.getElementById("chat-flow");
-    if (!input || !flowContainer) return;
-
-    const userText = input.value.trim();
-    if (!userText) return;
-
-    if (!currentBotName || currentBotName === "Bot") {
-        alert("Please set a bot name in the first panel before chatting!");
-        return;
-    }
-
-    // Add User Message
-    flowContainer.innerHTML += `<div class="user-message-container"><div class="bubble user-bubble">${userText}</div></div>`;
-    try { document.getElementById('snd-send')?.play(); } catch(e){}
-    
-    input.value = "";
-    chatHistory.push({ role: "user", content: userText });
-    scrollToBottom();
-
-    // Typing Indicator
-    const typingId = "typing-" + Date.now();
-    flowContainer.innerHTML += `
+        // Typing Indicator
+        const typingId = "typing-" + Date.now();
+        flowContainer.innerHTML += `
         <div class="bot-message-container" id="${typingId}">
             <img src="${currentAvatar}" class="avatar">
             <div class="typing-bubble"><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>
         </div>`;
-    scrollToBottom();
+        scrollToBottom();
 
-    try {
-        const response = await fetch("/api/chat", {
+        try {
+          const response = await fetch("/api/chat", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ model: "deepseek-chat", messages: chatHistory })
-        });
-        const data = await response.json();
-        if (data.error) throw new Error(data.error);
+          });
+          const data = await response.json();
+          if (data.error) throw new Error(data.error);
 
-        const botMessage = data.choices[0].message.content;
-        document.getElementById(typingId)?.remove();
-        try { document.getElementById('snd-receive')?.play(); } catch(e){}
+          const botMessage = data.choices[0].message.content;
+          document.getElementById(typingId)?.remove();
+          try { document.getElementById('snd-receive')?.play(); } catch (e) { }
 
-        flowContainer.innerHTML += `
+          flowContainer.innerHTML += `
             <div class="bot-message-container">
                 <img src="${currentAvatar}" class="avatar">
                 <div class="bubble bot-bubble">${botMessage}</div>
             </div>`;
-        chatHistory.push({ role: "assistant", content: botMessage });
-    } catch (e) {
-        const indicator = document.getElementById(typingId);
-        if (indicator) indicator.innerHTML = `<img src="${currentAvatar}" class="avatar"><div class="bubble bot-bubble" style="color:#ff4d4d">Error: ${e.message}</div>`;
-    }
-    scrollToBottom();
-}
-
-/* ============================================================
-   IV. UTILITY FUNCTIONS (Export, Clear, Copy)
-============================================================ */
-function exportJSON() {
-    const botData = {
-        name: currentBotName,
-        persona: document.getElementById("bot-persona")?.value || "",
-        avatar_url: currentAvatar,
-        export_date: new Date().toISOString()
-    };
-    const blob = new Blob([JSON.stringify(botData, null, 4)], { type: "application/json" });
-    const url = URL.createObjectURL(blob);
-    const link = document.createElement("a");
-    link.href = url;
-    link.download = `${currentBotName}-config.json`;
-    link.click();
-    URL.revokeObjectURL(url);
-}
-
-function clearChat() {
-    if (confirm("Are you sure you want to clear the conversation?")) {
-        const flowContainer = document.getElementById("chat-flow");
-        flowContainer.innerHTML = `<div class="system-notification">— Chat Cleared —</div>`;
-        chatHistory = [chatHistory[0]];
+          chatHistory.push({ role: "assistant", content: botMessage });
+        } catch (e) {
+          const indicator = document.getElementById(typingId);
+          if (indicator) indicator.innerHTML = `<img src="${currentAvatar}" class="avatar"><div class="bubble bot-bubble" style="color:#ff4d4d">Error: ${e.message}</div>`;
+        }
         scrollToBottom();
-    }
-}
+      }
 
-function copyBotCode() {
-    const isActivePy = document.getElementById('code-py')?.classList.contains('active');
-    const botName = currentBotName;
-    const botPersona = document.getElementById("bot-persona")?.value || "";
+      /* ============================================================
+         IV. UTILITY FUNCTIONS (Export, Clear, Copy)
+      ============================================================ */
+      function exportJSON() {
+        const botData = {
+          name: currentBotName,
+          persona: document.getElementById("bot-persona")?.value || "",
+          avatar_url: currentAvatar,
+          export_date: new Date().toISOString()
+        };
+        const blob = new Blob([JSON.stringify(botData, null, 4)], { type: "application/json" });
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement("a");
+        link.href = url;
+        link.download = `${currentBotName}-config.json`;
+        link.click();
+        URL.revokeObjectURL(url);
+      }
 
-    const pythonTemplate = `import discord\n# Bot: ${botName}\nbot.run("TOKEN")`;
-    const jsTemplate = `const client = new Client();\n// Bot: ${botName}\nclient.login("TOKEN")`;
+      function clearChat() {
+        if (confirm("Are you sure you want to clear the conversation?")) {
+          const flowContainer = document.getElementById("chat-flow");
+          flowContainer.innerHTML = `<div class="system-notification">— Chat Cleared —</div>`;
+          chatHistory = [chatHistory[0]];
+          scrollToBottom();
+        }
+      }
 
-    navigator.clipboard.writeText(isActivePy ? pythonTemplate : jsTemplate).then(() => {
-        const copyBtn = document.querySelector(".copy-btn");
-        if (copyBtn) {
+      function copyBotCode() {
+        const isActivePy = document.getElementById('code-py')?.classList.contains('active');
+        const botName = currentBotName;
+        const botPersona = document.getElementById("bot-persona")?.value || "";
+
+        const pythonTemplate = `import discord\n# Bot: ${botName}\nbot.run("TOKEN")`;
+        const jsTemplate = `const client = new Client();\n// Bot: ${botName}\nclient.login("TOKEN")`;
+
+        navigator.clipboard.writeText(isActivePy ? pythonTemplate : jsTemplate).then(() => {
+          const copyBtn = document.querySelector(".copy-btn");
+          if (copyBtn) {
             const originalText = copyBtn.innerHTML;
             copyBtn.innerHTML = '<i class="fa-solid fa-check"></i> Copied!';
             setTimeout(() => { copyBtn.innerHTML = originalText; }, 2000);
-        }
-    });
-}
+          }
+        });
+      }
 
-/* ============================================================
-   V. TERMINAL LOGIC
-============================================================ */
-function processCommand(cmd) {
-    const terminalBody = document.querySelector('.terminal-body');
-    const command = cmd.toLowerCase().trim();
-    
-    const responseLine = document.createElement('div');
-    responseLine.className = 'terminal-line';
-    terminalBody.insertBefore(responseLine, document.querySelector('.terminal-input-line'));
-    
-    let responseText = "";
-    switch (command) {
-        case 'help': responseText = "Commands: [status] [deploy] [order] [clear] [about]"; break;
-        case 'status': responseText = "CORE: FlexiV1 | STATUS: Ready."; break;
-        case 'clear': 
+      /* ============================================================
+         V. TERMINAL LOGIC
+      ============================================================ */
+      function processCommand(cmd) {
+        const terminalBody = document.querySelector('.terminal-body');
+        const command = cmd.toLowerCase().trim();
+
+        const responseLine = document.createElement('div');
+        responseLine.className = 'terminal-line';
+        terminalBody.insertBefore(responseLine, document.querySelector('.terminal-input-line'));
+
+        let responseText = "";
+        switch (command) {
+          case 'help': responseText = "Commands: [status] [deploy] [order] [clear] [about]"; break;
+          case 'status': responseText = "CORE: FlexiV1 | STATUS: Ready."; break;
+          case 'clear':
             document.querySelectorAll('.terminal-line:not(.terminal-input-line)').forEach(line => line.remove());
             return;
-        case 'order': 
+          case 'order':
             document.getElementById('order-section')?.scrollIntoView({ behavior: 'smooth' });
             responseText = "Scrolling to order terminal...";
             break;
-        default: responseText = `Command not recognized: '${cmd}'`;
-    }
-    responseLine.innerHTML = `<span class="output">> ${responseText}</span>`;
-    terminalBody.scrollTop = terminalBody.scrollHeight;
-}
+          default: responseText = `Command not recognized: '${cmd}'`;
+        }
+        responseLine.innerHTML = `<span class="output">> ${responseText}</span>`;
+        terminalBody.scrollTop = terminalBody.scrollHeight;
+      }
 
-/* ============================================================
-   VI. INITIALIZATION & OBSERVERS
-============================================================ */
-document.addEventListener("DOMContentLoaded", () => {
-    // 1. Mouse Glow Effect
-    const glowCards = document.querySelectorAll(".config-card, .chat-panel, .step-card, .glass-card");
-    document.addEventListener("mousemove", (e) => {
-        glowCards.forEach(card => {
+      /* ============================================================
+         VI. INITIALIZATION & OBSERVERS
+      ============================================================ */
+      document.addEventListener("DOMContentLoaded", () => {
+        // 1. Mouse Glow Effect
+        const glowCards = document.querySelectorAll(".config-card, .chat-panel, .step-card, .glass-card");
+        document.addEventListener("mousemove", (e) => {
+          glowCards.forEach(card => {
             const rect = card.getBoundingClientRect();
             const x = e.clientX - rect.left;
             const y = e.clientY - rect.top;
             card.style.setProperty("--mouse-x", `${x}px`);
             card.style.setProperty("--mouse-y", `${y}px`);
+          });
         });
-    });
 
-    // 2. Chat Input Listener
-    document.getElementById("user-input")?.addEventListener("keypress", (e) => {
-        if (e.key === "Enter") sendMessage();
-    });
+        // 2. Chat Input Listener
+        document.getElementById("user-input")?.addEventListener("keypress", (e) => {
+          if (e.key === "Enter") sendMessage();
+        });
 
-    // 3. Terminal Input Listener
-    const terminalInput = document.getElementById('terminalInput');
-    terminalInput?.addEventListener('keydown', function (e) {
-        if (e.key === 'Enter') {
+        // 3. Terminal Input Listener
+        const terminalInput = document.getElementById('terminalInput');
+        terminalInput?.addEventListener('keydown', function (e) {
+          if (e.key === 'Enter') {
             const userLine = document.createElement('div');
             userLine.className = 'terminal-line';
             userLine.innerHTML = `<span class="prompt">guest@flexibot:~$</span> <span class="output">${this.value}</span>`;
             document.querySelector('.terminal-body').insertBefore(userLine, document.querySelector('.terminal-input-line'));
             processCommand(this.value);
             this.value = '';
-        }
-    });
-
-    // 4. Swipe & Active Section Observers
-    const chatPanel = document.querySelector('.chat-panel');
-    const studioWrapper = document.querySelector('.studio-wrapper');
-    
-    const swipeObserver = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                if (entry.target === chatPanel) {
-                    chatPanel.classList.add('active-step', 'active');
-                    document.getElementById('step2')?.classList.add('active');
-                    document.getElementById('step1')?.classList.remove('active');
-                } else {
-                    document.getElementById('step1')?.classList.add('active');
-                    document.getElementById('step2')?.classList.remove('active');
-                }
-            }
+          }
         });
-    }, { threshold: 0.6 });
 
-    if (chatPanel) swipeObserver.observe(chatPanel);
-    document.querySelectorAll('.config-card').forEach(card => swipeObserver.observe(card));
-});
+        // 4. Swipe & Active Section Observers
+        const chatPanel = document.querySelector('.chat-panel');
+        const studioWrapper = document.querySelector('.studio-wrapper');
 
-// Sidebar Toggle
-function toggleMenu() {
-    document.getElementById("sidemenu").classList.toggle("active");
-    document.querySelector(".fa-bars")?.classList.toggle("open");
-}
+        const swipeObserver = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              if (entry.target === chatPanel) {
+                chatPanel.classList.add('active-step', 'active');
+                document.getElementById('step2')?.classList.add('active');
+                document.getElementById('step1')?.classList.remove('active');
+              } else {
+                document.getElementById('step1')?.classList.add('active');
+                document.getElementById('step2')?.classList.remove('active');
+              }
+            }
+          });
+        }, { threshold: 0.6 });
 
-const backToTop = document.getElementById("backToTop");
+        if (chatPanel) swipeObserver.observe(chatPanel);
+        document.querySelectorAll('.config-card').forEach(card => swipeObserver.observe(card));
+      });
 
-window.addEventListener("scroll", () => {
-    // Show button after scrolling down 400px
-    if (window.pageYOffset > 400) {
-        backToTop.classList.add("show");
-    } else {
-        backToTop.classList.remove("show");
-    }
-});
-</script>
+      // Sidebar Toggle
+      function toggleMenu() {
+        document.getElementById("sidemenu").classList.toggle("active");
+        document.querySelector(".fa-bars")?.classList.toggle("open");
+      }
+
+      const backToTop = document.getElementById("backToTop");
+
+      window.addEventListener("scroll", () => {
+        // Show button after scrolling down 400px
+        if (window.pageYOffset > 400) {
+          backToTop.classList.add("show");
+        } else {
+          backToTop.classList.remove("show");
+        }
+      });
+
+      function showStep(stepNumber) {
+        const config = document.querySelector('.config-card');
+        const chat = document.querySelector('.chat-panel');
+        const dot1 = document.getElementById('step1');
+        const dot2 = document.getElementById('step2');
+
+        if (stepNumber === 1) {
+          config.classList.add('active-panel');
+          chat.classList.remove('active-panel'); // Force hide chat on mobile
+          dot1.classList.add('active');
+          dot2.classList.remove('active');
+        } else {
+          // Step 2: Show the chat panel even if Identity isn't finished
+          chat.classList.add('active-panel');
+          config.classList.remove('active-panel');
+          dot2.classList.add('active');
+          dot1.classList.remove('active');
+        }
+      }
+
+      window.onload = function () {
+        if (window.innerWidth <= 600) {
+          showStep(1); // Forces the Config Panel to show on mobile load
+        }
+      };
+    </script>
 
     <a href="#header" id="backToTop" class="scroll-to-top">
       <i class="fas fa-chevron-up"></i>
